@@ -1,6 +1,47 @@
 <resources>
     <string name="app_name">BAC Indicator</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_add">Add</string>
+
+    <!-- GENERIC -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Add Dialog -->
+    <string name="dialog_add_title">Add a drink</string>
+    <string name="dialog_add_quantity_title">Select the quantity</string>
+    <string name="dialog_add_quantity_message">How many %s did you drink ?</string>
+
+    <!-- ARRAYS-->
+    <array name="alcohol">
+        <item>Absinthe</item>
+        <item>Armagnac</item>
+        <item>Beer</item>
+        <item>Bourbon</item>
+        <item>Brandy</item>
+        <item>Champagne</item>
+        <item>Cognac</item>
+        <item>Get 27</item>
+        <item>Gin</item>
+        <item>Jägermeister</item>
+        <item>Pink whine</item>
+        <item>Red whine</item>
+        <item>Rum</item>
+        <item>Tequila</item>
+        <item>Vermouth</item>
+        <item>Vodka</item>
+        <item>White whine</item>
+        <item>Whiskey</item>
+    </array>
+
+    <array name="quantity_us">
+        <item>shot</item>
+        <item>gill</item>
+        <item>cup</item>
+        <item>pint</item>
+        <item>quart</item>
+        <item>gallon</item>
+        <item>barrel</item>
+    </array>
 </resources>

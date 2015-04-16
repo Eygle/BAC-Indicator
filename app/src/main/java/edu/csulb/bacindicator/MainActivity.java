@@ -82,17 +82,20 @@ public class MainActivity extends ActionBarActivity {
 
                         ((TextView)layout.findViewById(R.id.quantity_title)).setText(String.format(getString(R.string.dialog_add_quantity_message), alcohol.toLowerCase()));
 
-                        NumberPicker value = (NumberPicker)layout.findViewById(R.id.quantity_nbr);
+                        final NumberPicker value = (NumberPicker)layout.findViewById(R.id.quantity_nbr);
                         value.setMinValue(1);
                         value.setMaxValue(10);
 
-                        Spinner quantityLabel = (Spinner)layout.findViewById(R.id.quantity_labels);
+                        final Spinner quantityLabel = (Spinner)layout.findViewById(R.id.quantity_labels);
                         quantityLabel.setAdapter(quantityAdapter);
 
                         dialogInner.setTitle(R.string.dialog_add_quantity_title);
                         dialogInner.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
+                                Drink d = new Drink(alcohol, quantityLabel.getSelectedItem().toString(), value.getValue());
+                                // TODO dring add in list
                                 dialog.dismiss();
                             }
                         });

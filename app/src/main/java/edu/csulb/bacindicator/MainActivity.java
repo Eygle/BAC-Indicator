@@ -3,6 +3,7 @@ package edu.csulb.bacindicator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,14 +15,18 @@ import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private SharedPreferences storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        storage = getSharedPreferences(getPackageName(), 0);
     }
 
 
@@ -42,10 +47,9 @@ public class MainActivity extends ActionBarActivity {
 
         if (id == R.id.action_add) {
             displayAddDialog();
-        }
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        } else if (id == R.id.action_repeat) {
+            repeatLastDrink();
+        } else if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             return true;
@@ -95,7 +99,15 @@ public class MainActivity extends ActionBarActivity {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 Drink d = new Drink(alcohol, quantityLabel.getSelectedItem().toString(), value.getValue());
-                                // TODO dring add in list
+
+                                // TODO add d in list
+
+                                SharedPreferences.Editor editor = storage.edit();
+                                editor.putString("lastDrinkAlcohol", d.getAlcohol());
+                                editor.putInt("lastDrinkQuantity", d.getQuantity());
+                                editor.putString("lastDrinkMeasure", d.getMeasure());
+
+                                editor.commit();
                                 dialog.dismiss();
                             }
                         });
@@ -104,5 +116,20 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
         dialog.show();
+    }
+
+    private void repeatLastDrink() {
+        String a = storage.getString("lastDrinkAlcohol", null);
+        int q = storage.getInt("lastDrinkQuantity", 0);
+        String m = storage.getString("lastDrinkMeasure", null);
+
+        if (a == null || q == 0 || m == null) {
+            Toast.makeText(this, R.string.error_no_last_drink, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Drink d = new Drink(a, m, q);
+        Toast.makeText(this, a + " " + q + " " + m + "", Toast.LENGTH_SHORT).show();
+        // TODO add d in drinks list
     }
 }

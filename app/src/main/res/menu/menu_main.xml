@@ -5,6 +5,8 @@
 
     <item android:id="@+id/action_add" android:title="@string/action_add"
         android:icon="@drawable/add" app:showAsAction="ifRoom" />
+    <item android:id="@+id/action_repeat" android:title="@string/action_repeat"
+        android:icon="@drawable/repeat" app:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />

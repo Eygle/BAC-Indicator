@@ -1,4 +1,4 @@
-package edu.csulb.bacindicator;
+package edu.csulb.bacindicator.models;
 
 /**
  * Created by Johan on 16/04/2015.

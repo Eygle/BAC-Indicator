@@ -17,35 +17,27 @@
     <!-- ERRORS -->
     <string name="error_no_last_drink">There is no drink to repeat !</string>
 
-    <!-- ARRAYS-->
-    <array name="alcohol">
-        <item>Absinthe</item>
-        <item>Armagnac</item>
-        <item>Beer</item>
-        <item>Bourbon</item>
-        <item>Brandy</item>
-        <item>Champagne</item>
-        <item>Cognac</item>
-        <item>Get 27</item>
-        <item>Gin</item>
-        <item>Jägermeister</item>
-        <item>Pink whine</item>
-        <item>Red whine</item>
-        <item>Rum</item>
-        <item>Tequila</item>
-        <item>Vermouth</item>
-        <item>Vodka</item>
-        <item>White whine</item>
-        <item>Whiskey</item>
-    </array>
+    <!-- SETTINGS -->
+    <string name="personal_info">Personal Information</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="gender">Gender</string>
+    <string name="games">Games</string>
+    <string name="game_mode">Game Mode</string>
+    <string name="sos_friend">SOS Friend</string>
+    <string name="friend">Friend</string>
+    <string name="app_text">Application text</string>
+    <string name="message">Message</string>
+    <string name="units">Units</string>
 
-    <array name="quantity_us">
-        <item>shot</item>
-        <item>gill</item>
-        <item>cup</item>
-        <item>pint</item>
-        <item>quart</item>
-        <item>gallon</item>
-        <item>barrel</item>
-    </array>
+    <string name="hint_height">Please provide your height</string>
+    <string name="hint_weight">Please provide your weight</string>
+    <string name="hint_gender">Please provide your gender</string>
+    <string name="hint_app_text">Please select the check box to use the application message</string>
+    <string name="hint_game_mode">Please select the check box to activate the games</string>
+    <string name="hint_friend">Please select a contact to use</string>
+    <string name="hint_message">Please write a message for your contact</string>
+    <string name="hint_units">Please select a unit to use</string>
+
+    <string name="title_activity_contact_picker">ContactPicker</string>
 </resources>

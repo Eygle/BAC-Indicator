@@ -1,4 +1,4 @@
-package edu.csulb.bacindicator;
+package edu.csulb.bacindicator.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,12 +10,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import edu.csulb.bacindicator.R;
+import edu.csulb.bacindicator.models.Drink;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -64,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
         dialog.setTitle(R.string.dialog_add_title);
 
         final ArrayAdapter<CharSequence> alcoholAdapter = ArrayAdapter.createFromResource(this,
-                R.array.alcohol,
+                R.array.alcohol_array,
                 android.R.layout.select_dialog_item);
 
         dialog.setNegativeButton(R.string.cancel, null);
@@ -81,7 +83,7 @@ public class MainActivity extends ActionBarActivity {
                         dialogInner.setView(layout);
 
                         final ArrayAdapter<CharSequence> quantityAdapter = ArrayAdapter.createFromResource(MainActivity.this,
-                                R.array.quantity_us,
+                                R.array.quantity_us_array,
                                 android.R.layout.select_dialog_item);
 
                         ((TextView)layout.findViewById(R.id.quantity_title)).setText(String.format(getString(R.string.dialog_add_quantity_message), alcohol.toLowerCase()));

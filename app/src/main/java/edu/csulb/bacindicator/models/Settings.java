@@ -14,11 +14,9 @@ public class Settings {
 	private static boolean	gameMode;
 	private static boolean	appText;
 	private static String unit;
-	
-	
+
 	public static void init(Context context)
 	{
-
     	SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
     	contact = appPreferences.getLong("friend", -1);
@@ -29,8 +27,8 @@ public class Settings {
     	gender = appPreferences.getString("gender", "1");
     	message = appPreferences.getString("message", "-1");
     	setUnit(appPreferences.getString("unit", "1"));
-    	
-    	/*
+
+		/*
     	System.out.println(appPreferences.getLong("friend", -1));
 
     	System.out.println(appPreferences.getString("height", "-1"));

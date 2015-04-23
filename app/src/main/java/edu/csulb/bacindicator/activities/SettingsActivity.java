@@ -46,7 +46,7 @@ public class SettingsActivity extends PreferenceActivity implements
 		PreferenceManager.getDefaultSharedPreferences(this)
 				.registerOnSharedPreferenceChangeListener(this);
 
-		Preference customContact = (Preference) findPreference("friend");
+		Preference customContact = findPreference("friend");
 
 		customContact
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -85,7 +85,7 @@ public class SettingsActivity extends PreferenceActivity implements
 					SharedPreferences.Editor editor = appPreferences.edit();
 
 					editor.putLong("friend", newId);
-					editor.commit();
+					editor.apply();
 
 					// String name =
 					// cursor.getString(cursor.getColumnIndexOrThrow(Contacts.DISPLAY_NAME));

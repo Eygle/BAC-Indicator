@@ -1,37 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/personal_info" >
+    <PreferenceCategory android:title="@string/personal_info">
         <EditTextPreference
+            android:inputType="number"
             android:key="height"
-            android:inputType="number" 
             android:summary="@string/hint_height"
-            android:title="@string/height" >
-        </EditTextPreference>
+            android:title="@string/height"/>
         <EditTextPreference
+            android:inputType="number"
             android:key="weight"
-            android:inputType="number" 
             android:summary="@string/hint_weight"
-            android:title="@string/weight" >
-        </EditTextPreference>
-   
-        <ListPreference      
-            android:key="gender"
-            android:summary="@string/hint_gender"
-            android:title="@string/gender"
+            android:title="@string/weight"/>
+
+        <ListPreference
             android:defaultValue="1"
             android:entries="@array/gender_array"
-            android:entryValues="@array/listValues" />
-        
+            android:entryValues="@array/listValues"
+            android:key="gender"
+            android:summary="@string/hint_gender"
+            android:title="@string/gender" />
+
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/games" >
+    <PreferenceCategory android:title="@string/games">
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="gameMode"
             android:summary="@string/hint_game_mode"
             android:title="@string/game_mode" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/sos_friend" >
+    <PreferenceCategory android:title="@string/sos_friend">
         <Preference
             android:id="@+id/friend_picker"
             android:key="friend"
@@ -43,23 +41,23 @@
             android:key="appText"
             android:summary="@string/hint_app_text"
             android:title="@string/app_text" />
-        
+
         <EditTextPreference
             android:key="message"
             android:summary="@string/hint_message"
             android:title="@string/message" />
-        
+
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/units" >
-     <ListPreference      
-            android:key="unit" 
-            android:summary="@string/hint_units"
-            android:title="@string/units"
+    <PreferenceCategory android:title="@string/units">
+        <ListPreference
             android:defaultValue="1"
             android:entries="@array/unit_array"
-            android:entryValues="@array/listValues" />
+            android:entryValues="@array/listValues"
+            android:key="unit"
+            android:summary="@string/hint_units"
+            android:title="@string/units" />
     </PreferenceCategory>
-    
-    
+
+
 </PreferenceScreen>

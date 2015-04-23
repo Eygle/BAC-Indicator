@@ -40,4 +40,9 @@
     <string name="hint_units">Please select a unit to use</string>
 
     <string name="title_activity_contact_picker">ContactPicker</string>
+    <string name="context_menu_title">Actions</string>
+    <string name="context_menu_delete">Delete drink</string>
+    <string name="bac">Blood Alcohol content :</string>
+    <string name="default_bac">0.00</string>
+    <string name="drink_format">%1$d %2$s of %3$s</string>
 </resources>

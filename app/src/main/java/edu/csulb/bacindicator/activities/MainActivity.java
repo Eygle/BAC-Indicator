@@ -1,63 +1,87 @@
 package edu.csulb.bacindicator.activities;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.csulb.bacindicator.R;
+import edu.csulb.bacindicator.adapters.DrinkListAdapter;
+import edu.csulb.bacindicator.models.BAC;
 import edu.csulb.bacindicator.models.Drink;
+import edu.csulb.bacindicator.models.Settings;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences storage;
+
+    private List<Drink> drinks;
+
+    private DrinkListAdapter adapter;
+
+    private TextView bacView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         storage = getSharedPreferences(getPackageName(), 0);
+
+        bacView = (TextView) findViewById(R.id.bac_text);
+        ListView list = (ListView) findViewById(R.id.drink_list);
+
+        drinks = new ArrayList<>();
+
+        adapter = new DrinkListAdapter(this);
+        list.setAdapter(adapter);
+        registerForContextMenu(list);
+
+        // tmp
+        Settings.init(this);
     }
 
+    private void onDrinksUpdate() {
+        adapter.clear();
+        adapter.addAll(drinks);
+        adapter.notifyDataSetChanged();
+        float bac = BAC.calculate(drinks);
+        bacView.setText(DecimalFormat.getInstance().format(bac));
+        int newColor = BAC.getColor(bac);
+        int color = bacView.getCurrentTextColor();
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        if (newColor != color) {
+            ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), color, newColor);
+            colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.action_add) {
-            displayAddDialog();
-        } else if (id == R.id.action_repeat) {
-            repeatLastDrink();
-        } else if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
+                @Override
+                public void onAnimationUpdate(ValueAnimator animator) {
+                    bacView.setTextColor((Integer) animator.getAnimatedValue());
+                }
+            });
+            colorAnimation.start();
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void displayAddDialog() {
@@ -101,15 +125,15 @@ public class MainActivity extends ActionBarActivity {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 Drink d = new Drink(alcohol, quantityLabel.getSelectedItem().toString(), value.getValue());
-
-                                // TODO add d in list
+                                drinks.add(d);
+                                onDrinksUpdate();
 
                                 SharedPreferences.Editor editor = storage.edit();
                                 editor.putString("lastDrinkAlcohol", d.getAlcohol());
                                 editor.putInt("lastDrinkQuantity", d.getQuantity());
                                 editor.putString("lastDrinkMeasure", d.getMeasure());
 
-                                editor.commit();
+                                editor.apply();
                                 dialog.dismiss();
                             }
                         });
@@ -131,7 +155,61 @@ public class MainActivity extends ActionBarActivity {
         }
 
         Drink d = new Drink(a, m, q);
+        drinks.add(d);
+        onDrinksUpdate();
         Toast.makeText(this, a + " " + q + " " + m + "", Toast.LENGTH_SHORT).show();
-        // TODO add d in drinks list
+    }
+
+    private static final int CONTEXT_MENU_ACTION_DELETE = 0x1;
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        menu.setHeaderIcon(R.mipmap.ic_launcher);
+        menu.setHeaderTitle(R.string.context_menu_title);
+        menu.add(Menu.NONE, CONTEXT_MENU_ACTION_DELETE, Menu.NONE, R.string.context_menu_delete);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+            case CONTEXT_MENU_ACTION_DELETE:
+                drinks.remove(info.position);
+                onDrinksUpdate();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.action_add) {
+            displayAddDialog();
+        } else if (id == R.id.action_repeat) {
+            repeatLastDrink();
+        } else if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

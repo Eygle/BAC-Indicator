@@ -1,17 +1,16 @@
 package edu.csulb.bacindicator.models;
 
-/**
- * Created by Johan on 16/04/2015.
- */
 public class Drink {
     private String alcohol;
     private String measure;
     private int quantity;
+    private long time;
 
     public Drink(String a, String m, int q) {
         alcohol = a;
         measure = m;
         quantity = q;
+        time = System.nanoTime();
     }
 
     public String getAlcohol() {
@@ -24,5 +23,9 @@ public class Drink {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public long getTime() {
+        return time;
     }
 }

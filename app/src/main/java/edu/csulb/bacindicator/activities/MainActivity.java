@@ -23,16 +23,22 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.adapters.DrinkListAdapter;
+import edu.csulb.bacindicator.games.ColorsGameActivity;
 import edu.csulb.bacindicator.models.BAC;
 import edu.csulb.bacindicator.models.Drink;
 import edu.csulb.bacindicator.models.Settings;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private final int TEST_GAME_SCORE = 1;
+    public static final int RESULT_FAILED = 424242;
+    public static final int RESULT_SKIPPED = 424243;
 
     private SharedPreferences storage;
 
@@ -41,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     private DrinkListAdapter adapter;
 
     private TextView bacView;
+
+    private List<Intent> games = new ArrayList<>();
+    private List<Intent> gamesToPlay = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
         // tmp
         Settings.init(this);
+
+        // Add all games launchers intent in games collection
+        games.add(new Intent(this, ColorsGameActivity.class));
     }
 
     private void onDrinksUpdate() {
@@ -160,6 +172,16 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, a + " " + q + " " + m + "", Toast.LENGTH_SHORT).show();
     }
 
+    private void initPlayGames() {
+        gamesToPlay.clear();
+        gamesToPlay.addAll(games);
+        Collections.shuffle(gamesToPlay);
+    }
+
+    private void playNextGame() {
+        startActivityForResult(gamesToPlay.remove(0), TEST_GAME_SCORE);
+    }
+
     private static final int CONTEXT_MENU_ACTION_DELETE = 0x1;
 
     @Override
@@ -204,12 +226,39 @@ public class MainActivity extends AppCompatActivity {
             displayAddDialog();
         } else if (id == R.id.action_repeat) {
             repeatLastDrink();
+        } else if (id == R.id.action_game) {
+            initPlayGames();
+            playNextGame();
         } else if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == TEST_GAME_SCORE) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // The user picked a contact.
+                // The Intent's data Uri identifies which contact was selected.
+
+                // Do something with the contact here (bigger example below)
+                Toast.makeText(this, "You won !", Toast.LENGTH_SHORT).show();
+                if (gamesToPlay.size() > 0) {
+                    playNextGame();
+                }
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user choose to skip the game
+                Toast.makeText(this, "You cancelled !", Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_FAILED) {
+                Toast.makeText(this, "You failed !", Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_SKIPPED) {
+                Toast.makeText(this, "You skipped !", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

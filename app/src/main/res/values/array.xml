@@ -44,4 +44,22 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+
+    <string-array name="colors_name">
+        <item>Red</item>
+        <item>Green</item>
+        <item>Blue</item>
+        <item>Yellow</item>
+        <item>Purple</item>
+        <item>Orange</item>
+    </string-array>
+
+    <string-array name="colors_code">
+        <item>#e74c3c</item>
+        <item>#2ecc71</item>
+        <item>#3498db</item>
+        <item>#f1c40f</item>
+        <item>#9b59b6</item>
+        <item>#e67e22</item>
+    </string-array>
 </resources>

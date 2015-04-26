@@ -25,6 +25,15 @@ public class Drink {
         return quantity;
     }
 
+    public int getAlcoholQuantity() {
+        // TODO
+        switch (measure) {
+            case "shot":
+                return quantity;
+        }
+        return quantity;
+    }
+
     public long getTime() {
         return time;
     }

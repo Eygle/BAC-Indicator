@@ -14,12 +14,12 @@ import android.view.View;
 import android.view.WindowManager;
 
 import edu.csulb.bacindicator.R;
-import edu.csulb.bacindicator.games.Game;
+import edu.csulb.bacindicator.games.GameView;
 
 /**
  * Created by Brian on 30/04/2015.
  */
-public class PintGameView extends Game implements View.OnTouchListener {
+public class PintGameView extends GameView implements View.OnTouchListener {
     private PintElement target;
     private PintElement pint;
 

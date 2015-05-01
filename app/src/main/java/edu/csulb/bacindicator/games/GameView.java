@@ -8,10 +8,10 @@ import edu.csulb.bacindicator.activities.MainActivity;
 /**
  * Created by Johan on 30/04/2015.
  */
-public abstract class Game extends View {
+public abstract class GameView extends View {
     protected Activity context;
 
-    public Game(Activity context) {
+    public GameView(Activity context) {
         super(context);
         this.context = context;
     }

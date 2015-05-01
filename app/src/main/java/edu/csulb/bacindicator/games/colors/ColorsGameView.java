@@ -17,12 +17,12 @@ import android.view.View;
 import android.view.WindowManager;
 
 import edu.csulb.bacindicator.R;
-import edu.csulb.bacindicator.games.Game;
+import edu.csulb.bacindicator.games.GameView;
 
 /**
  * Created by Johan on 25/04/2015.
  */
-public class ColorsGameView extends Game implements View.OnTouchListener {
+public class ColorsGameView extends GameView implements View.OnTouchListener {
     private int nbrOfLaps = 25;
     private int lapTotalDuration = 1800; // In milliseconds
     private int possibleFailed = 1;

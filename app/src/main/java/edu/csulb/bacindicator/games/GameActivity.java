@@ -14,7 +14,7 @@ import edu.csulb.bacindicator.games.pint.PintGameView;
  * Created by Johan on 30/04/2015.
  */
 public class GameActivity extends Activity {
-    private Game game;
+    private GameView gameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,25 +27,25 @@ public class GameActivity extends Activity {
 
         switch (g) {
             case "Colors":
-                game = new ColorsGameView(this);
+                gameView = new ColorsGameView(this);
                 title = getString(R.string.game_color_dialog_title);
                 message = getString(R.string.game_color_dialog_text);
                 break;
             case "Pint":
-                game = new PintGameView(this);
+                gameView = new PintGameView(this);
                 title = getString(R.string.game_pint_dialog_title);
                 message = getString(R.string.game_pint_dialog_text);
                 break;
         }
 
-        setContentView(game);
+        setContentView(gameView);
 
         new AlertDialog.Builder(this)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(R.string.play, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        game.start();
+                        gameView.start();
                     }
                 })
                 .setNeutralButton(R.string.skip, new DialogInterface.OnClickListener() {

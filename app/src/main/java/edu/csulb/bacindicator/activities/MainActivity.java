@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,13 +29,15 @@ import java.util.List;
 
 import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.adapters.DrinkListAdapter;
-import edu.csulb.bacindicator.games.ColorsGameActivity;
+import edu.csulb.bacindicator.db.BacIndicatorDataSource;
+import edu.csulb.bacindicator.games.GameActivity;
 import edu.csulb.bacindicator.models.BAC;
 import edu.csulb.bacindicator.models.Drink;
 import edu.csulb.bacindicator.models.Settings;
 
 
 public class MainActivity extends AppCompatActivity {
+    private BacIndicatorDataSource db;
 
     private final int TEST_GAME_SCORE = 1;
     public static final int RESULT_FAILED = 424242;
@@ -48,13 +51,25 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView bacView;
 
-    private List<Intent> games = new ArrayList<>();
-    private List<Intent> gamesToPlay = new ArrayList<>();
+    private List<String> games = new ArrayList<>();
+    private List<String> gamesToPlay = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        try {
+            db = new BacIndicatorDataSource(MainActivity.this);
+            db.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Create data if the database is empty
+        if (db.isEmpty()) {
+            db.fillData();
+        }
 
         storage = getSharedPreferences(getPackageName(), 0);
 
@@ -70,9 +85,20 @@ public class MainActivity extends AppCompatActivity {
         // tmp
         Settings.init(this);
 
-        // Add all games launchers intent in games collection
-        games.add(new Intent(this, ColorsGameActivity.class));
+        // Add all games names
+        games.add("Colors");
+        games.add("Pint");
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (db != null) {
+            db.close();
+        }
+    }
+
 
     private void onDrinksUpdate() {
         adapter.clear();
@@ -179,7 +205,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void playNextGame() {
-        startActivityForResult(gamesToPlay.remove(0), TEST_GAME_SCORE);
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("game", gamesToPlay.remove(0));
+        startActivityForResult(intent, TEST_GAME_SCORE);
     }
 
     private static final int CONTEXT_MENU_ACTION_DELETE = 0x1;
@@ -258,6 +286,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "You failed !", Toast.LENGTH_SHORT).show();
             } else if (resultCode == RESULT_SKIPPED) {
                 Toast.makeText(this, "You skipped !", Toast.LENGTH_SHORT).show();
+                if (gamesToPlay.size() > 0) {
+                    playNextGame();
+                } else {
+                    // TODO you win !
+                }
             }
         }
     }

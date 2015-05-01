@@ -53,4 +53,7 @@
     <string name="game_color_legend">True or false ?</string>
     <string name="game_color_dialog_title">Start the color game</string>
     <string name="game_color_dialog_text">Press start whenever you are ready !</string>
+
+    <string name="game_pint_dialog_title">Start the pint game</string>
+    <string name="game_pint_dialog_text">Put the pint inside the oval\nPress start whenever you are ready !</string>
 </resources>

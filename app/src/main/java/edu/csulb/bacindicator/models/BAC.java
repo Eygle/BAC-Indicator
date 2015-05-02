@@ -14,7 +14,7 @@ public class BAC {
         int drinkCount = 0;
 
         for (Drink d : drinks)
-            drinkCount += d.getQuantity();
+            drinkCount += d.quantity;
         float bac = (0.806f * drinkCount * 1.2f) / (bodyWaterConstant() * Integer.valueOf(Settings.getWeight())) - (0.017f * 2);
         return (Math.max(bac, 0.0f));
     }

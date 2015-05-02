@@ -21,13 +21,17 @@ public class DBBacIndicatorHelper extends SQLiteOpenHelper {
 
     public final static String COLUMN_CAT_ID = "category_id";
 
+    public final static String COLUMN_DRINKS_ID = "drinks_id";
+    public final static String COLUMN_TIMESTAMP = "timestamp";
+    public final static String COLUMN_QUANTITY = "quantity";
+
+    public final static String COLUMN_ALCOHOL_ID = "alcohol_id";
     public final static String COLUMN_BRAND = "alcohol_brand";
     public final static String COLUMN_VOL = "alcohol_vol";
 
     public final static String COLUMMN_MEASURE_UNIT_LITTER = "quantity_litter";
     public final static String COLUMMN_MEASURE_UNIT_SYSTEM = "quantity_system";
 
-    public final static String COLUMN_ALCOHOL_ID = "alcohol_id";
     public final static String COLUMN_UNIT_ID = "unit_id";
 
     public final static String COLUMN_STRING = "string";
@@ -37,35 +41,39 @@ public class DBBacIndicatorHelper extends SQLiteOpenHelper {
     public final static String LANG_FR = "fr";
     public final static String LANG_EN = "en";
 
+    public final static String MEASURE_IMPERIAL = "imperial";
+    public final static String MEASURE_METRIC = "metric";
+
     public final static String CREATE_TABLE_ALCOHOL_CATEGORIES = String.format(
             "CREATE TABLE IF NOT EXISTS %S (" +
-                    " _id integer primary key autoincrement," +
+                    " %s integer primary key autoincrement," +
                     " %s long)",
-            TABLE_ALCOHOL_CAT, COLUMN_STR_ID);
+            TABLE_ALCOHOL_CAT, COLUMN_CAT_ID, COLUMN_STR_ID);
 
     public final static String CREATE_TABLE_MEASURE_UNIT = String.format(
             "CREATE TABLE IF NOT EXISTS %S (" +
-                    " _id integer primary key autoincrement," +
+                    " %s integer primary key autoincrement," +
                     " %s long," +
                     " %s float," +
                     " %s text)",
-            TABLE_MEASURE_UNIT, COLUMN_STR_ID, COLUMMN_MEASURE_UNIT_LITTER, COLUMMN_MEASURE_UNIT_SYSTEM);
+            TABLE_MEASURE_UNIT, COLUMN_UNIT_ID, COLUMN_STR_ID, COLUMMN_MEASURE_UNIT_LITTER, COLUMMN_MEASURE_UNIT_SYSTEM);
 
     public final static String CREATE_TABLE_ALCOHOLS = String.format(
             "CREATE TABLE IF NOT EXISTS %S (" +
-                    " _id integer primary key autoincrement," +
+                    " %s integer primary key autoincrement," +
                     " %s long," +
                     " %s text," +
                     " %s float)",
-            TABLE_ALCOHOLS, COLUMN_CAT_ID, COLUMN_BRAND, COLUMN_VOL);
+            TABLE_ALCOHOLS, COLUMN_ALCOHOL_ID, COLUMN_CAT_ID, COLUMN_BRAND, COLUMN_VOL);
 
     public final static String CREATE_TABLE_ALCOHOL_DRINKS = String.format(
             "CREATE TABLE IF NOT EXISTS %S (" +
-                    " _id integer primary key autoincrement," +
+                    " %s integer primary key autoincrement," +
                     " %s long," +
                     " %s long," +
+                    " %s int," +
                     " %s long)",
-            TABLE_DRINKS, COLUMN_CAT_ID, COLUMN_ALCOHOL_ID, COLUMN_UNIT_ID);
+            TABLE_DRINKS, COLUMN_DRINKS_ID, COLUMN_ALCOHOL_ID, COLUMN_UNIT_ID, COLUMN_QUANTITY, COLUMN_TIMESTAMP);
 
     public final static String CREATE_TABLE_STRINGS = String.format(
             "CREATE TABLE IF NOT EXISTS %S (" +

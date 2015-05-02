@@ -27,15 +27,15 @@ public class DrinkListAdapter extends ArrayAdapter<Drink> {
         if (convertView == null) {
             LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
 
-            convertView = inflater.inflate(R.layout.drink_item, parent, false);
+            convertView = inflater.inflate(R.layout.drink_list_item, parent, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.description.setText(getContext().getString(R.string.drink_format, drink.getQuantity(), drink.getMeasure(), drink.getAlcohol()));
-        holder.time.setText(DateUtils.getRelativeTimeSpanString(BAC.NanoToMillis(drink.getTime()), BAC.NanoToMillis(System.nanoTime()), 0, 0));
+        holder.description.setText(getContext().getString(R.string.drink_format, drink.quantity, drink.measure, drink.alcohol));
+        holder.time.setText(DateUtils.getRelativeTimeSpanString(drink.time, System.currentTimeMillis(), 0, 0));
         return convertView;
     }
 

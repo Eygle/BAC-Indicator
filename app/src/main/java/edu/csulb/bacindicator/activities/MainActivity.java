@@ -28,12 +28,14 @@ import java.util.Collections;
 import java.util.List;
 
 import edu.csulb.bacindicator.R;
+import edu.csulb.bacindicator.adapters.AlcoholCategoriesAdapter;
 import edu.csulb.bacindicator.adapters.DrinkListAdapter;
 import edu.csulb.bacindicator.db.BacIndicatorDataSource;
 import edu.csulb.bacindicator.games.GameActivity;
 import edu.csulb.bacindicator.models.BAC;
 import edu.csulb.bacindicator.models.Drink;
 import edu.csulb.bacindicator.models.Settings;
+import edu.csulb.bacindicator.utils.AddDrinkUtil;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -76,9 +78,10 @@ public class MainActivity extends AppCompatActivity {
         bacView = (TextView) findViewById(R.id.bac_text);
         ListView list = (ListView) findViewById(R.id.drink_list);
 
-        drinks = new ArrayList<>();
+        drinks = db.getAllDrinks();
 
         adapter = new DrinkListAdapter(this);
+        adapter.addAll(drinks);
         list.setAdapter(adapter);
         registerForContextMenu(list);
 
@@ -100,7 +103,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void onDrinksUpdate() {
+    public void onDrinksUpdate() {
+        drinks.clear();
+        drinks.addAll(db.getAllDrinks());
         adapter.clear();
         adapter.addAll(drinks);
         adapter.notifyDataSetChanged();
@@ -122,80 +127,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void displayAddDialog() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(
-                MainActivity.this);
-        dialog.setTitle(R.string.dialog_add_title);
-
-        final ArrayAdapter<CharSequence> alcoholAdapter = ArrayAdapter.createFromResource(this,
-                R.array.alcohol_array,
-                android.R.layout.select_dialog_item);
-
-        dialog.setNegativeButton(R.string.cancel, null);
-
-        dialog.setAdapter(alcoholAdapter,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        final String alcohol = alcoholAdapter.getItem(which).toString();
-                        AlertDialog.Builder dialogInner = new AlertDialog.Builder(
-                                MainActivity.this);
-                        LayoutInflater inflater = MainActivity.this.getLayoutInflater();
-                        View layout = inflater.inflate(R.layout.dialog_quantity, null);
-                        dialogInner.setView(layout);
-
-                        final ArrayAdapter<CharSequence> quantityAdapter = ArrayAdapter.createFromResource(MainActivity.this,
-                                R.array.quantity_us_array,
-                                android.R.layout.select_dialog_item);
-
-                        ((TextView)layout.findViewById(R.id.quantity_title)).setText(String.format(getString(R.string.dialog_add_quantity_message), alcohol.toLowerCase()));
-
-                        final NumberPicker value = (NumberPicker)layout.findViewById(R.id.quantity_nbr);
-                        value.setMinValue(1);
-                        value.setMaxValue(10);
-
-                        final Spinner quantityLabel = (Spinner)layout.findViewById(R.id.quantity_labels);
-                        quantityLabel.setAdapter(quantityAdapter);
-
-                        dialogInner.setTitle(R.string.dialog_add_quantity_title);
-                        dialogInner.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                Drink d = new Drink(alcohol, quantityLabel.getSelectedItem().toString(), value.getValue());
-                                drinks.add(d);
-                                onDrinksUpdate();
-
-                                SharedPreferences.Editor editor = storage.edit();
-                                editor.putString("lastDrinkAlcohol", d.getAlcohol());
-                                editor.putInt("lastDrinkQuantity", d.getQuantity());
-                                editor.putString("lastDrinkMeasure", d.getMeasure());
-
-                                editor.apply();
-                                dialog.dismiss();
-                            }
-                        });
-                        dialogInner.setNegativeButton(R.string.cancel, null);
-                        dialogInner.show();
-                    }
-                });
-        dialog.show();
-    }
-
     private void repeatLastDrink() {
-        String a = storage.getString("lastDrinkAlcohol", null);
-        int q = storage.getInt("lastDrinkQuantity", 0);
-        String m = storage.getString("lastDrinkMeasure", null);
+        long alcoholId = storage.getLong("lastDrinkAlcoholId", -1);
+        long measureId = storage.getLong("lastDrinkMeasureId", -1);
+        int quantity = storage.getInt("lastDrinkQuantity", -1);
 
-        if (a == null || q == 0 || m == null) {
+        if (alcoholId == -1 || measureId == -1 || quantity == -1) {
             Toast.makeText(this, R.string.error_no_last_drink, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Drink d = new Drink(a, m, q);
-        drinks.add(d);
+        db.createDrink(alcoholId, measureId, quantity);
+
         onDrinksUpdate();
-        Toast.makeText(this, a + " " + q + " " + m + "", Toast.LENGTH_SHORT).show();
     }
 
     private void initPlayGames() {
@@ -227,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case CONTEXT_MENU_ACTION_DELETE:
-                drinks.remove(info.position);
+                db.deleteDrink(drinks.get(info.position));
                 onDrinksUpdate();
                 return true;
             default:
@@ -251,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_add) {
-            displayAddDialog();
+            AddDrinkUtil.displayAddDialog(this, storage, db);
         } else if (id == R.id.action_repeat) {
             repeatLastDrink();
         } else if (id == R.id.action_game) {

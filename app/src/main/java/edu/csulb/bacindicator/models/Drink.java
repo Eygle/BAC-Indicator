@@ -1,40 +1,13 @@
 package edu.csulb.bacindicator.models;
 
-public class Drink {
-    private String alcohol;
-    private String measure;
-    private int quantity;
-    private long time;
+import java.io.Serializable;
 
-    public Drink(String a, String m, int q) {
-        alcohol = a;
-        measure = m;
-        quantity = q;
-        time = System.nanoTime();
-    }
-
-    public String getAlcohol() {
-        return alcohol;
-    }
-
-    public String getMeasure() {
-        return measure;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public int getAlcoholQuantity() {
-        // TODO
-        switch (measure) {
-            case "shot":
-                return quantity;
-        }
-        return quantity;
-    }
-
-    public long getTime() {
-        return time;
-    }
+public class Drink implements Serializable {
+    public long id;
+    public String alcohol;
+    public String measure;
+    public int quantity;
+    public float liters;
+    public float vol;
+    public long time;
 }

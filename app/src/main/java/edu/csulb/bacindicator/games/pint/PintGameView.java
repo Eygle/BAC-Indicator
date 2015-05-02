@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -112,7 +111,6 @@ public class PintGameView extends GameView implements View.OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            Log.d("Test", "ACTION DOWN");
             pint.handleActionDown((int) event.getX(), (int) event.getY());
 
             if (event.getY() > getHeight() - 50) {
@@ -120,7 +118,6 @@ public class PintGameView extends GameView implements View.OnTouchListener {
             }
         }
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            Log.d("Test", "ACTION MOVE");
             if (pint.isTouched()) {
                 pint.setX((int) event.getX());
                 pint.setY((int) event.getY());

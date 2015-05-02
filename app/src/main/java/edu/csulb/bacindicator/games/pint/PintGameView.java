@@ -6,7 +6,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.Point;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,15 +28,18 @@ public class PintGameView extends GameView implements View.OnTouchListener {
 
     private Bitmap green_circle;
     private Bitmap red_circle;
+    Paint paint;
 
     private long startTime;
     private long nowTime;
+	private CountDownTimer countDown = null;
 
     private boolean startCount = false;
 
     private int[]	targetSize;
     private int[] pintSize;
-
+    private int timeLeft;
+    
     private boolean start = false;
 
     public PintGameView(Activity context) {
@@ -40,7 +47,8 @@ public class PintGameView extends GameView implements View.OnTouchListener {
 
         targetSize = new int[2];
         pintSize = new int[2];
-
+        
+        paint = new Paint(); 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
 
@@ -48,10 +56,11 @@ public class PintGameView extends GameView implements View.OnTouchListener {
         display.getSize(size);
 
         targetSize[0] = size.x / 4;
-        targetSize[1] = size.y / 4;
+        targetSize[1] = size.y / 5;
 
         pintSize[0] = size.x / 6;
-        pintSize[1] = size.y / 6;
+        pintSize[1] = size.y / 7;
+        
 
         Bitmap b = BitmapFactory.decodeResource(getResources(),
                 R.drawable.pinte);
@@ -66,6 +75,7 @@ public class PintGameView extends GameView implements View.OnTouchListener {
         setFocusable(true);
 
         setOnTouchListener(this);
+        countDown();
     }
 
     @Override
@@ -78,10 +88,16 @@ public class PintGameView extends GameView implements View.OnTouchListener {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawColor(Color.BLACK);
+        //canvas.drawColor(Color.BLACK);
         target.draw(canvas);
         pint.draw(canvas);
 
+      
+
+        paint.setColor(Color.BLACK); 
+        paint.setTextSize(20); 
+        canvas.drawText(String.valueOf(timeLeft), 10, 25, paint); 
+        
         if (start) {
             update();
             invalidate();
@@ -111,6 +127,7 @@ public class PintGameView extends GameView implements View.OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            Log.d("Test", "ACTION DOWN");
             pint.handleActionDown((int) event.getX(), (int) event.getY());
 
             if (event.getY() > getHeight() - 50) {
@@ -118,6 +135,7 @@ public class PintGameView extends GameView implements View.OnTouchListener {
             }
         }
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            Log.d("Test", "ACTION MOVE");
             if (pint.isTouched()) {
                 pint.setX((int) event.getX());
                 pint.setY((int) event.getY());
@@ -131,7 +149,7 @@ public class PintGameView extends GameView implements View.OnTouchListener {
                         startCount = true;
                     } else {
                         nowTime = System.currentTimeMillis() / 1000;
-                        if (nowTime - startTime >= 7) {
+                        if (nowTime - startTime >= 3) {
                             success();
                         }
                     }
@@ -151,4 +169,17 @@ public class PintGameView extends GameView implements View.OnTouchListener {
         }
         return true;
     }
+    
+    public void countDown() {
+		countDown = new CountDownTimer(30000, 500) {
+
+			public void onTick(long millisUntilFinished) {
+				timeLeft = (int)millisUntilFinished / 1000;
+			}
+
+			public void onFinish() {
+	            failure();
+			}
+		}.start();
+	}
 }

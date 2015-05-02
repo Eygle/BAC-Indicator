@@ -5,20 +5,20 @@ package edu.csulb.bacindicator.games.pint;
  */
 public class PintSpeed {
 	
-	public static final int DIRECTION_RIGHT	= 2;
-	public static final int DIRECTION_LEFT	= -2;
-	public static final int DIRECTION_UP	= -2;
-	public static final int DIRECTION_DOWN	= 2;
+	public static final int DIRECTION_RIGHT	= 1;
+	public static final int DIRECTION_LEFT	= -1;
+	public static final int DIRECTION_UP	= -1;
+	public static final int DIRECTION_DOWN	= 1;
 	
-	private double xv = 1.5;
-	private double yv = 1.5;
+	private double xv = 13;
+	private double yv = 13;
 	
 	private int xDirection = DIRECTION_RIGHT;
 	private int yDirection = DIRECTION_DOWN;
 	
 	public PintSpeed() {
-		this.xv = 1.5;
-		this.yv = 1.5;
+		this.xv = 13;
+		this.yv = 13;
 	}
 
 	public PintSpeed(float xv, float yv) {

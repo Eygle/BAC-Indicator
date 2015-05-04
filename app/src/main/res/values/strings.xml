@@ -56,4 +56,7 @@
 
     <string name="game_pint_dialog_title">Start the pint game</string>
     <string name="game_pint_dialog_text">Put the pint inside the oval\nPress start whenever you are ready !</string>
+    <string name="R.string.title_ball_game">Start the ball game</string>
+    <string name="R.string.message_ball_game">Keep the ball the circle, don\'t move too much!</string>
+    <string name="message_no_sensor">No sensor found on this phone. Impossible to play this game.</string>
 </resources>

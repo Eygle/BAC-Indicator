@@ -2,22 +2,16 @@ package edu.csulb.bacindicator.activities;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 import edu.csulb.bacindicator.R;
-import edu.csulb.bacindicator.adapters.AlcoholCategoriesAdapter;
 import edu.csulb.bacindicator.adapters.DrinkListAdapter;
 import edu.csulb.bacindicator.db.BacIndicatorDataSource;
 import edu.csulb.bacindicator.games.GameActivity;
@@ -39,20 +32,15 @@ import edu.csulb.bacindicator.utils.AddDrinkUtil;
 
 
 public class MainActivity extends AppCompatActivity {
-    private BacIndicatorDataSource db;
-
-    private final int TEST_GAME_SCORE = 1;
     public static final int RESULT_FAILED = 424242;
     public static final int RESULT_SKIPPED = 424243;
-
+    private static final int CONTEXT_MENU_ACTION_DELETE = 0x1;
+    private final int TEST_GAME_SCORE = 1;
+    private BacIndicatorDataSource db;
     private SharedPreferences storage;
-
     private List<Drink> drinks;
-
     private DrinkListAdapter adapter;
-
     private TextView bacView;
-
     private List<String> games = new ArrayList<>();
     private List<String> gamesToPlay = new ArrayList<>();
 
@@ -91,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         // Add all games names
         games.add("Colors");
         games.add("Pint");
+        games.add("Ball");
     }
 
     @Override
@@ -101,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
             db.close();
         }
     }
-
 
     public void onDrinksUpdate() {
         drinks.clear();
@@ -114,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         int newColor = BAC.getColor(bac);
         int color = bacView.getCurrentTextColor();
 
-        if (newColor != color) {
+        if (newColor != color) { // Color change
             ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), color, newColor);
             colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
@@ -153,8 +141,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("game", gamesToPlay.remove(0));
         startActivityForResult(intent, TEST_GAME_SCORE);
     }
-
-    private static final int CONTEXT_MENU_ACTION_DELETE = 0x1;
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {

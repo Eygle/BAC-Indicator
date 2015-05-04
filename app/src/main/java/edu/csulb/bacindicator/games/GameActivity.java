@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.activities.MainActivity;
+import edu.csulb.bacindicator.games.ball.BallGameView;
 import edu.csulb.bacindicator.games.colors.ColorsGameView;
 import edu.csulb.bacindicator.games.pint.PintGameView;
 
@@ -35,6 +36,11 @@ public class GameActivity extends Activity {
                 gameView = new PintGameView(this);
                 title = getString(R.string.game_pint_dialog_title);
                 message = getString(R.string.game_pint_dialog_text);
+                break;
+            case "Ball":
+                gameView = new BallGameView(this);
+                title = getString(R.string.R_string_title_ball_game);
+                message = getString(R.string.R_string_message_ball_game);
                 break;
         }
 

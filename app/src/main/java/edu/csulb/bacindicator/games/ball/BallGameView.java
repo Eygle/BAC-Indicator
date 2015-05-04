@@ -51,6 +51,8 @@ public class BallGameView extends GameView implements SensorEventListener {
         WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         mDisplay = windowManager.getDefaultDisplay();
 
+        mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+
         Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (sensor == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -63,7 +65,6 @@ public class BallGameView extends GameView implements SensorEventListener {
             return;
         }
 
-        mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
 
         mHorizontalBound = mDisplay.getWidth();

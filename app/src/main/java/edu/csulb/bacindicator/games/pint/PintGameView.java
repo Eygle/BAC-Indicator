@@ -42,6 +42,9 @@ public class PintGameView extends GameView implements View.OnTouchListener {
     
     private boolean start = false;
 
+    private int width;
+    private int height;
+
     public PintGameView(Activity context) {
         super(context);
 
@@ -76,6 +79,8 @@ public class PintGameView extends GameView implements View.OnTouchListener {
 
         setOnTouchListener(this);
         countDown();
+
+        initWindow(context);
     }
 
     @Override
@@ -95,13 +100,21 @@ public class PintGameView extends GameView implements View.OnTouchListener {
       
 
         paint.setColor(Color.BLACK); 
-        paint.setTextSize(20); 
-        canvas.drawText(String.valueOf(timeLeft), 10, 25, paint); 
+        paint.setTextSize(60);
+        canvas.drawText(String.valueOf(timeLeft), width / 2 - paint.measureText(String.valueOf(timeLeft)) / 2, 100, paint);
         
         if (start) {
             update();
             invalidate();
         }
+    }
+
+    private void initWindow(Context context) {
+        WindowManager mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display mDisplay = mWindowManager.getDefaultDisplay();
+
+        width = mDisplay.getWidth();
+        height = mDisplay.getHeight();
     }
 
     public void update() {

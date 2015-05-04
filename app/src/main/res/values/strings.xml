@@ -6,6 +6,13 @@
     <string name="action_repeat">Repeat</string>
     <string name="action_game">Games</string>
 
+    <string name="buttonCall">Send Message</string>
+    
+    
+    <!--  KEY GOOGLE MAP  -->
+    
+    <string name="keyMap">AIzaSyDIYjLbIpSbDaHvV9W5Bg6jQVhqZ5DQUR0</string>
+    
     <!-- GENERIC -->
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
@@ -21,6 +28,7 @@
     <string name="error_no_last_drink">There is no drink to repeat !</string>
 
     <!-- SETTINGS -->
+    <string name="appMessage">Can you please come to pick me up ? </string>
     <string name="personal_info">Personal Information</string>
     <string name="weight">Weight</string>
     <string name="height">Height</string>

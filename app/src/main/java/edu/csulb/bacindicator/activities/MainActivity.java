@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
         Settings.init(this);
 
         // Add all games names
-        games.add("Colors");
-        games.add("Pint");
+//        games.add("Colors");
+//        games.add("Pint");
         games.add("Ball");
 
         handler.postDelayed(updateRunnable, updateDelay);

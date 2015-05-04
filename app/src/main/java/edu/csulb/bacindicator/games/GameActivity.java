@@ -39,8 +39,8 @@ public class GameActivity extends Activity {
                 break;
             case "Ball":
                 gameView = new BallGameView(this);
-                title = getString(R.string.R_string_title_ball_game);
-                message = getString(R.string.R_string_message_ball_game);
+                title = getString(R.string.title_ball_game);
+                message = getString(R.string.message_ball_game);
                 break;
         }
 

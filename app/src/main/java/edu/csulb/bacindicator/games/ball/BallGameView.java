@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import java.util.concurrent.TimeUnit;
 
 import edu.csulb.bacindicator.R;
+import edu.csulb.bacindicator.activities.MainActivity;
 import edu.csulb.bacindicator.games.GameView;
 
 public class BallGameView extends GameView implements SensorEventListener {
@@ -62,6 +63,9 @@ public class BallGameView extends GameView implements SensorEventListener {
             builder.setTitle(R.string.app_name);
             builder.create().show();
             failure();
+
+//            context.setResult(MainActivity.RESULT_SKIPPED);
+//            context.finish();
             return;
         }
 

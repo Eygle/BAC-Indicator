@@ -6,8 +6,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
+import android.telephony.SmsManager;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
@@ -38,9 +41,10 @@ import edu.csulb.bacindicator.models.Settings;
 import edu.csulb.bacindicator.utils.AddDrinkUtil;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ActionBarActivity {
     private BacIndicatorDataSource db;
 
+    private Button sendMessage = null;
     private final int TEST_GAME_SCORE = 1;
     public static final int RESULT_FAILED = 424242;
     public static final int RESULT_SKIPPED = 424243;
@@ -91,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
         // Add all games names
         games.add("Colors");
         games.add("Pint");
+        sendMessage = (Button)findViewById(R.id.buttonCall);
+        sendMessage.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -103,6 +109,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void	sendSMS(View view)
+    {
+    	String text = Settings.getMessageToSend();
+    	SmsManager smsManager = SmsManager.getDefault();
+    	smsManager.sendTextMessage(Settings.getContact().getNumber(), null, text, null, null);
+    //	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("sms:"
+      //          + Settings.getContact().getNumber())));
+    }
+    
+    
     public void onDrinksUpdate() {
         drinks.clear();
         drinks.addAll(db.getAllDrinks());
@@ -111,6 +127,13 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         float bac = BAC.calculate(drinks);
         bacView.setText(DecimalFormat.getInstance().format(bac));
+        
+        
+        if (bac >= 0) // change value
+        {
+            sendMessage.setVisibility(View.VISIBLE);
+        }
+        
         int newColor = BAC.getColor(bac);
         int color = bacView.getCurrentTextColor();
 

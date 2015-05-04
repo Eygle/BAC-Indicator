@@ -41,7 +41,7 @@ public class BallGameView extends GameView implements SensorEventListener {
 
     public BallGameView(Activity context) {
         super(context);
-        initialize();
+        //initialize();
     }
 
     private static long toSeconds(long nanoSeconds) {
@@ -88,6 +88,7 @@ public class BallGameView extends GameView implements SensorEventListener {
 
     @Override
     public void start() {
+        initialize();
         startTime = System.nanoTime();
         invalidate();
     }
@@ -107,6 +108,9 @@ public class BallGameView extends GameView implements SensorEventListener {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        if (startTime == 0) return;
+
         long updateTime = System.nanoTime();
 
         mBall.updatePosition(mSensorX, mSensorY, 0, mSensorTimestamp);

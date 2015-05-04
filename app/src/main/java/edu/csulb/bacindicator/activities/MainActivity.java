@@ -32,6 +32,7 @@ import edu.csulb.bacindicator.utils.AddDrinkUtil;
 
 
 public class MainActivity extends AppCompatActivity {
+
     public static final int RESULT_FAILED = 424242;
     public static final int RESULT_SKIPPED = 424243;
     private static final int CONTEXT_MENU_ACTION_DELETE = 0x1;
@@ -56,11 +57,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // Create data if the database is empty
-        if (db.isEmpty()) {
-            db.fillData();
-        }
-
         storage = getSharedPreferences(getPackageName(), 0);
 
         bacView = (TextView) findViewById(R.id.bac_text);
@@ -73,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
         list.setAdapter(adapter);
         registerForContextMenu(list);
 
+        // TODO: list empty view
+
         // tmp
         Settings.init(this);
 
@@ -83,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
 
         if (db != null) {
             db.close();
@@ -92,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onDrinksUpdate() {
-        drinks.clear();
-        drinks.addAll(db.getAllDrinks());
         adapter.clear();
         adapter.addAll(drinks);
         adapter.notifyDataSetChanged();
@@ -115,6 +111,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void addDrink(long alcoholId, long measureId, int quantity, boolean repeat) {
+        long id = db.createDrink(alcoholId, measureId, quantity);
+        drinks.add(db.getDrink(id));
+
+        onDrinksUpdate();
+
+        if (repeat) {
+            SharedPreferences.Editor editor = storage.edit();
+            editor.putLong("lastDrinkAlcoholId", alcoholId);
+            editor.putLong("lastDrinkMeasureId", measureId);
+            editor.putInt("lastDrinkQuantity", quantity);
+
+            editor.apply();
+        }
+    }
+
     private void repeatLastDrink() {
         long alcoholId = storage.getLong("lastDrinkAlcoholId", -1);
         long measureId = storage.getLong("lastDrinkMeasureId", -1);
@@ -124,10 +136,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.error_no_last_drink, Toast.LENGTH_SHORT).show();
             return;
         }
-
-        db.createDrink(alcoholId, measureId, quantity);
-
-        onDrinksUpdate();
+        addDrink(alcoholId, measureId, quantity, false);
     }
 
     private void initPlayGames() {
@@ -157,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case CONTEXT_MENU_ACTION_DELETE:
-                db.deleteDrink(drinks.get(info.position));
+                db.deleteDrink(drinks.remove(info.position));
                 onDrinksUpdate();
                 return true;
             default:

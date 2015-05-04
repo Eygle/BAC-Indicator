@@ -26,11 +26,8 @@ public class BacIndicatorDataSource {
     private SQLiteDatabase database;
     private DBBacIndicatorHelper dbHelper;
 
-    private MainActivity context;
-
     public BacIndicatorDataSource(MainActivity context) {
         dbHelper = new DBBacIndicatorHelper(context);
-        this.context = context;
     }
 
     public void open() throws SQLException {
@@ -72,6 +69,26 @@ public class BacIndicatorDataSource {
             cursor.close();
         }
         return count;
+    }
+
+    public Drink getDrink(long id) {
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DBBacIndicatorHelper.TABLE_DRINKS + " WHERE " + DBBacIndicatorHelper.COLUMN_DRINKS_ID + " = " + id, null);
+
+        if (cursor == null || cursor.getCount() == 0)
+            return null;
+        Drink d = new Drink();
+
+        d.id = cursor.getLong(0);
+        d.alcohol = cursor.getString(1);
+        d.measure = cursor.getString(2);
+        d.quantity = cursor.getInt(3);
+        d.liters = cursor.getFloat(4);
+        d.vol = cursor.getFloat(5);
+        d.time = cursor.getLong(6);
+
+        cursor.close();
+
+        return d;
     }
 
     public List<Drink> getAllDrinks() {

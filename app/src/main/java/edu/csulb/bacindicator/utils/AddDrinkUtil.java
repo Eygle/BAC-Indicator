@@ -3,15 +3,11 @@ package edu.csulb.bacindicator.utils;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.util.Locale;
 
 import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.activities.MainActivity;
@@ -22,7 +18,6 @@ import edu.csulb.bacindicator.db.BacIndicatorDataSource;
 import edu.csulb.bacindicator.db.DBBacIndicatorHelper;
 import edu.csulb.bacindicator.models.Alcohol;
 import edu.csulb.bacindicator.models.AlcoholCategory;
-import edu.csulb.bacindicator.models.Drink;
 import edu.csulb.bacindicator.models.Measure;
 
 /**
@@ -44,7 +39,6 @@ public class AddDrinkUtil {
         AddDrinkUtil.context = context;
         AddDrinkUtil.storage = storage;
         AddDrinkUtil.db = db;
-
 
         alcoholCategoriesAdapter = new AlcoholCategoriesAdapter(context,
                 db.getAllCategories());
@@ -83,7 +77,6 @@ public class AddDrinkUtil {
     private static void displayQuantitySelector(int which) {
         alcohol = alcoholAdapter.getItem(which);
 
-
         LayoutInflater inflater = context.getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_quantity, null);
 
@@ -107,16 +100,8 @@ public class AddDrinkUtil {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Measure measure = (Measure)quantityLabel.getSelectedItem();
-                        db.createDrink(alcohol.id, measure.id, value.getValue());
+                        context.addDrink(alcohol.id, measure.id, value.getValue(), true);
 
-                        context.onDrinksUpdate();
-
-                        SharedPreferences.Editor editor = storage.edit();
-                        editor.putLong("lastDrinkAlcoholId", alcohol.id);
-                        editor.putLong("lastDrinkMeasureId", measure.id);
-                        editor.putInt("lastDrinkQuantity", value.getValue());
-
-                        editor.apply();
                         dialog.dismiss();
                     }
                 })

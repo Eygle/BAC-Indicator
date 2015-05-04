@@ -4,18 +4,15 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,14 +35,12 @@ import edu.csulb.bacindicator.utils.AddDrinkUtil;
 
 
 public class MainActivity extends AppCompatActivity {
-    private BacIndicatorDataSource db;
 
-    private Button sendMessage = null;
-    private final int TEST_GAME_SCORE = 1;
     public static final int RESULT_FAILED = 424242;
     public static final int RESULT_SKIPPED = 424243;
     private static final int CONTEXT_MENU_ACTION_DELETE = 0x1;
     private final int TEST_GAME_SCORE = 1;
+    private Button sendMessage = null;
     private BacIndicatorDataSource db;
     private SharedPreferences storage;
 
@@ -60,7 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler handler = new Handler();
     private int updateDelay = 10000;
-
+    Runnable updateRunnable = new Runnable() {
+        public void run() {
+            onDrinksUpdate();
+            handler.postDelayed(this, updateDelay);
+        }
+    };
     private MenuItem menuGameItem;
 
     @Override
@@ -105,16 +105,6 @@ public class MainActivity extends AppCompatActivity {
         onDrinksUpdate();
     }
 
-    Runnable updateRunnable = new Runnable() {
-        public void run() {
-            onDrinksUpdate();
-            handler.postDelayed(this, updateDelay);
-        }
-    };
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     protected void onResume() {
         super.onResume();
         if (menuGameItem != null) {
@@ -210,8 +200,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("game", gamesToPlay.remove(0));
         startActivityForResult(intent, TEST_GAME_SCORE);
     }
-
-    private static final int CONTEXT_MENU_ACTION_DELETE = 0x1;
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {

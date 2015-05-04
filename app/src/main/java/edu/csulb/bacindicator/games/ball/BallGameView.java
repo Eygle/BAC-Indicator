@@ -17,13 +17,12 @@ import android.view.WindowManager;
 import java.util.concurrent.TimeUnit;
 
 import edu.csulb.bacindicator.R;
-import edu.csulb.bacindicator.activities.MainActivity;
 import edu.csulb.bacindicator.games.GameView;
 
 public class BallGameView extends GameView implements SensorEventListener {
 
     private static final int BALL_SIZE = 50;
-    private static final int ZONE_SIZE = 100;
+    private static final int ZONE_SIZE = 125;
     private static final int OUT_MAX_TIME_SEC = 3;
     private static final int GAME_MAX_LENGTH_SEC = 60;
     private Display mDisplay;
@@ -41,7 +40,7 @@ public class BallGameView extends GameView implements SensorEventListener {
 
     public BallGameView(Activity context) {
         super(context);
-        //initialize();
+        initialize();
     }
 
     private static long toSeconds(long nanoSeconds) {
@@ -84,11 +83,11 @@ public class BallGameView extends GameView implements SensorEventListener {
         mTextPaint.setColor(Color.BLACK);
         mTextPaint.setStyle(Paint.Style.FILL);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
+        mTextPaint.setTextSize(50);
     }
 
     @Override
     public void start() {
-        initialize();
         startTime = System.nanoTime();
         invalidate();
     }
@@ -129,16 +128,16 @@ public class BallGameView extends GameView implements SensorEventListener {
                 outTime = 0;
             }
             mTextPaint.setColor(Color.BLACK);
-            canvas.drawText(toSeconds(updateTime - startTime) + "sec.", mHorizontalBound / 2, 50, mTextPaint);
+            canvas.drawText(toSeconds(updateTime - startTime) + " sec." , mHorizontalBound / 2, 100, mTextPaint);
         } else {
             if (outTime == 0) {
                 outTime = updateTime;
-            } else if (toSeconds(updateTime - startTime) > OUT_MAX_TIME_SEC) {
+            } else if (toSeconds(updateTime - outTime) > OUT_MAX_TIME_SEC) {
                 // TODO: wait a little then fail?
                 failure();
             }
             mTextPaint.setColor(Color.RED);
-            canvas.drawText(toSeconds(updateTime - startTime) + "sec.", mHorizontalBound / 2, 50, mTextPaint);
+            canvas.drawText(toSeconds(updateTime - outTime) + " sec." , mHorizontalBound / 2, 100, mTextPaint);
         }
 
         mCirclePaint.setColor(Color.RED);

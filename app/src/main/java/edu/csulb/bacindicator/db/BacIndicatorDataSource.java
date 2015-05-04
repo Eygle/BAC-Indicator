@@ -72,12 +72,39 @@ public class BacIndicatorDataSource {
     }
 
     public Drink getDrink(long id) {
-        Cursor cursor = database.rawQuery("SELECT * FROM " + DBBacIndicatorHelper.TABLE_DRINKS + " WHERE " + DBBacIndicatorHelper.COLUMN_DRINKS_ID + " = " + id, null);
+        Cursor cursor = database.rawQuery("SELECT " +
+                DBBacIndicatorHelper.COLUMN_DRINKS_ID + ", " +
+                DBBacIndicatorHelper.COLUMN_BRAND + ", " +
+                DBBacIndicatorHelper.COLUMN_STRING + ", " +
+                DBBacIndicatorHelper.COLUMN_QUANTITY + ", " +
+                DBBacIndicatorHelper.COLUMMN_MEASURE_UNIT_LITTER + ", " +
+                DBBacIndicatorHelper.COLUMN_VOL + ", " +
+                DBBacIndicatorHelper.COLUMN_TIMESTAMP +
+                " FROM " + DBBacIndicatorHelper.TABLE_DRINKS + " AS tDri" +
+
+                " INNER JOIN " + DBBacIndicatorHelper.TABLE_ALCOHOLS + " AS tAlc" +
+                " ON tDri." + DBBacIndicatorHelper.COLUMN_ALCOHOL_ID +
+                " = tAlc." + DBBacIndicatorHelper.COLUMN_ALCOHOL_ID +
+
+                " INNER JOIN " + DBBacIndicatorHelper.TABLE_MEASURE_UNIT + " AS tMea" +
+                " ON tDri." + DBBacIndicatorHelper.COLUMN_UNIT_ID +
+                " = tMea." + DBBacIndicatorHelper.COLUMN_UNIT_ID +
+
+                " INNER JOIN " + DBBacIndicatorHelper.TABLE_STRINGS + " AS tStr" +
+                " ON tMea." + DBBacIndicatorHelper.COLUMN_STR_ID +
+                " = tStr." + DBBacIndicatorHelper.COLUMN_STR_ID +
+
+                " WHERE tStr." + DBBacIndicatorHelper.COLUMN_STRING_LANG +
+                " LIKE ? " +
+                " AND " + DBBacIndicatorHelper.COLUMN_DRINKS_ID + " = " + id +
+                " ORDER BY " + DBBacIndicatorHelper.COLUMN_TIMESTAMP + " DESC"
+                , new String[]{Utils.getLanguage()});
 
         if (cursor == null || cursor.getCount() == 0)
             return null;
         Drink d = new Drink();
 
+        cursor.moveToFirst();
         d.id = cursor.getLong(0);
         d.alcohol = cursor.getString(1);
         d.measure = cursor.getString(2);

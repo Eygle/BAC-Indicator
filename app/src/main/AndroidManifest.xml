@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.csulb.bacindicator" >
 
-    <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="21" />
-
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="edu.csulb.bacindicator.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

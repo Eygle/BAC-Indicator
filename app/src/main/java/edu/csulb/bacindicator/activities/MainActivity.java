@@ -2,16 +2,15 @@ package edu.csulb.bacindicator.activities;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +18,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +28,6 @@ import java.util.Collections;
 import java.util.List;
 
 import edu.csulb.bacindicator.R;
-import edu.csulb.bacindicator.adapters.AlcoholCategoriesAdapter;
 import edu.csulb.bacindicator.adapters.DrinkListAdapter;
 import edu.csulb.bacindicator.db.BacIndicatorDataSource;
 import edu.csulb.bacindicator.games.GameActivity;
@@ -60,6 +56,11 @@ public class MainActivity extends ActionBarActivity {
     private List<String> games = new ArrayList<>();
     private List<String> gamesToPlay = new ArrayList<>();
 
+    private Handler handler = new Handler();
+    private int updateDelay = 10000;
+
+    private MenuItem menuGameItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,13 +80,13 @@ public class MainActivity extends ActionBarActivity {
 
         storage = getSharedPreferences(getPackageName(), 0);
 
+        sendMessage = (Button)findViewById(R.id.buttonCall);
+        sendMessage.setVisibility(View.VISIBLE);
+
         bacView = (TextView) findViewById(R.id.bac_text);
         ListView list = (ListView) findViewById(R.id.drink_list);
 
-        drinks = db.getAllDrinks();
-
         adapter = new DrinkListAdapter(this);
-        adapter.addAll(drinks);
         list.setAdapter(adapter);
         registerForContextMenu(list);
 
@@ -95,14 +96,32 @@ public class MainActivity extends ActionBarActivity {
         // Add all games names
         games.add("Colors");
         games.add("Pint");
-        sendMessage = (Button)findViewById(R.id.buttonCall);
-        sendMessage.setVisibility(View.VISIBLE);
+
+        handler.postDelayed(updateRunnable, updateDelay);
+
+        onDrinksUpdate();
+    }
+
+    Runnable updateRunnable = new Runnable() {
+        public void run() {
+            onDrinksUpdate();
+            handler.postDelayed(this, updateDelay);
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (menuGameItem != null) {
+            menuGameItem.setVisible(Settings.isGameMode());
+        }
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
 
+        handler.removeCallbacks(updateRunnable);
         if (db != null) {
             db.close();
         }
@@ -120,8 +139,7 @@ public class MainActivity extends ActionBarActivity {
     
     
     public void onDrinksUpdate() {
-        drinks.clear();
-        drinks.addAll(db.getAllDrinks());
+        drinks = db.getAllDrinks();
         adapter.clear();
         adapter.addAll(drinks);
         adapter.notifyDataSetChanged();
@@ -206,6 +224,9 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        menuGameItem = menu.findItem(R.id.action_game);
+        menuGameItem.setVisible(Settings.isGameMode());
 
         return true;
     }

@@ -41,7 +41,7 @@ public class SettingsActivity extends PreferenceActivity implements
 
 		final ListPreference gender = (ListPreference) findPreference("gender");
 		final ListPreference units = (ListPreference) findPreference("unit");
-		final Preference contact = (Preference) findPreference("friend");
+		final Preference contact = findPreference("friend");
 
 		
 		

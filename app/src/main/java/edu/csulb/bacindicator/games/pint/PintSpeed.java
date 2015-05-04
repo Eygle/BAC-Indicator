@@ -17,8 +17,8 @@ public class PintSpeed {
 	private int yDirection = DIRECTION_DOWN;
 	
 	public PintSpeed() {
-		this.xv = 13;
-		this.yv = 13;
+		this.xv = 10;
+		this.yv = 10;
 	}
 
 	public PintSpeed(float xv, float yv) {

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Paramètres</string>
+    <string name="action_add">Ajouter</string>
+    <string name="action_repeat">Répéter</string>
+    <string name="action_game">Jeux</string>
+
+    <string name="buttonCall">Envoyer un message</string>
+
+    <!-- GENERIC -->
+    <string name="ok">OK</string>
+    <string name="cancel">Annuler</string>
+    <string name="play">Jouer</string>
+    <string name="skip">Passer</string>
+
+    <!-- Add Dialog -->
+    <string name="dialog_add_title">Ajouter une boisson</string>
+    <string name="dialog_add_quantity_title">Selectionnez la quantité</string>
+    <string name="dialog_add_quantity_message">Combien de %s avez-vous bu ?</string>
+
+    <!-- ERRORS -->
+    <string name="error_no_last_drink">Il n\'y a pas de boisson à répéter !</string>
+
+    <!-- SETTINGS -->
+    <string name="appMessage">Peux-tu venir me chercher s\'il te plait ?</string>
+    <string name="personal_info">Informations personnelles</string>
+    <string name="weight">Poids</string>
+    <string name="height">Taille</string>
+    <string name="gender">Sexe</string>
+    <string name="games">Jeux</string>
+    <string name="game_mode">Activer les jeux</string>
+    <string name="sos_friend">SOS Ami</string>
+    <string name="friend">Ami</string>
+    <string name="app_text">Phrase pré-programmée</string>
+    <string name="message">Message</string>
+    <string name="units">Unité</string>
+
+    <string name="hint_height">Indiquez votre taille</string>
+    <string name="hint_weight">Indiquez votre poids</string>
+    <string name="hint_gender">Indiquez votre sexe</string>
+    <string name="hint_app_text">Cochez la checkbox pour utiliser le message de l\'application</string>
+    <string name="hint_game_mode">Sélectionnez la checkbox pour activer les jeux</string>
+    <string name="hint_friend">Sélectionner une personne à contacter d\'urgence</string>
+    <string name="hint_message">Ecrivez votre message pour votre contact</string>
+    <string name="hint_units">Sélectionnez le système d\'unité à utiliser</string>
+
+    <string name="context_menu_title">Actions</string>
+    <string name="context_menu_delete">Supprimez la boisson</string>
+    <string name="bac">Pourcentage d\'alcool dans le sang :</string>
+    <string name="default_bac">0.00</string>
+    <string name="drink_format">%1$d %2$s de %3$s</string>
+
+    <!-- Games -->
+    <string name="game_win_title">Vous avez gagné !</string>
+    <string name="game_win_message">Vous ne semblez pas si soul. Cependant, ça ne veut pas dire que vous pouvez conduire ! Soyez reponsable.</string>
+    <string name="game_loose_title">Vous avez perdu !</string>
+    <string name="game_loose_message">Ne prennez pas le volant si vous avez bu !</string>
+
+    <string name="game_color_legend">Vrai ou faux ?</string>
+    <string name="game_color_dialog_title">Démarrez le jeu des couleurs</string>
+    <string name="game_color_dialog_text">Pressez jouer quand vous êtes prêt !</string>
+
+    <string name="game_pint_dialog_title">Démarrez le jeu de la pinte</string>
+    <string name="game_pint_dialog_text">Placez la pinte dans l\'oval\nPressez jouer quand vous êtes prêt !</string>
+
+    <string name="title_ball_game">Démarrez le jeu de la balle</string>
+    <string name="message_ball_game">Gardez la balle dans le cercle. Ne bougez pas trop !</string>
+    <string name="message_no_sensor">Aucun capteur trouvé sur ce téléphone. Impossible de jouer à ce jeu.</string>
+</resources>

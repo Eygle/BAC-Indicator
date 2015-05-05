@@ -81,9 +81,9 @@ public class AddDrinkUtil {
         View layout = inflater.inflate(R.layout.dialog_quantity, null);
 
 
-        ((TextView)layout.findViewById(R.id.quantity_title)).setText(
-                String.format(
-                        context.getString(R.string.dialog_add_quantity_message), alcohol.name));
+//        ((TextView)layout.findViewById(R.id.quantity_title)).setText(
+//                String.format(
+//                        context.getString(R.string.dialog_add_quantity_message), alcohol.name));
 
         final NumberPicker value = (NumberPicker)layout.findViewById(R.id.quantity_nbr);
         value.setMinValue(1);

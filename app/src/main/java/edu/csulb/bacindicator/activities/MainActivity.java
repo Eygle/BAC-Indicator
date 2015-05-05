@@ -2,6 +2,8 @@ package edu.csulb.bacindicator.activities;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -198,6 +200,24 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, TEST_GAME_SCORE);
     }
 
+    private void displayWon() {
+        new AlertDialog.Builder(this)
+                .setTitle(getText(R.string.game_win_title))
+                .setMessage(R.string.game_win_message)
+                .setPositiveButton(R.string.ok, null)
+                .create()
+                .show();
+    }
+
+    private void displayFail() {
+        new AlertDialog.Builder(this)
+                .setTitle(getText(R.string.game_loose_title))
+                .setMessage(R.string.game_loose_message)
+                .setPositiveButton(R.string.ok, null)
+                .create()
+                .show();
+    }
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -260,25 +280,22 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == TEST_GAME_SCORE) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-                // The user picked a contact.
-                // The Intent's data Uri identifies which contact was selected.
-
-                // Do something with the contact here (bigger example below)
-                Toast.makeText(this, "You won !", Toast.LENGTH_SHORT).show();
-                if (gamesToPlay.size() > 0) {
-                    playNextGame();
-                }
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user choose to skip the game
-                Toast.makeText(this, "You cancelled !", Toast.LENGTH_SHORT).show();
-            } else if (resultCode == RESULT_FAILED) {
-                Toast.makeText(this, "You failed !", Toast.LENGTH_SHORT).show();
-            } else if (resultCode == RESULT_SKIPPED) {
-                Toast.makeText(this, "You skipped !", Toast.LENGTH_SHORT).show();
                 if (gamesToPlay.size() > 0) {
                     playNextGame();
                 } else {
-                    // TODO you win !
+                    displayWon();
+                }
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user choose to skip the game
+                Toast.makeText(this, "You cancelled the games.", Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_FAILED) {
+               displayFail();
+            } else if (resultCode == RESULT_SKIPPED) {
+                //Toast.makeText(this, "You skipped the game.", Toast.LENGTH_SHORT).show();
+                if (gamesToPlay.size() > 0) {
+                    playNextGame();
+                } else {
+                    displayWon();
                 }
             }
         }

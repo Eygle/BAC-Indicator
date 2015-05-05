@@ -2,13 +2,14 @@ package edu.csulb.bacindicator.activities;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -19,13 +20,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.adapters.DrinkListAdapter;
 import edu.csulb.bacindicator.db.BacIndicatorDataSource;
@@ -36,7 +35,8 @@ import edu.csulb.bacindicator.models.Settings;
 import edu.csulb.bacindicator.utils.AddDrinkUtil;
 
 
-public class MainActivity extends AppCompatActivity {
+@SuppressLint("NewApi")
+public class MainActivity extends ActionBarActivity {
 
     public static final int RESULT_FAILED = 424242;
     public static final int RESULT_SKIPPED = 424243;
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         storage = getSharedPreferences(getPackageName(), 0);
 
         sendMessage = (Button)findViewById(R.id.buttonCall);
-        sendMessage.setVisibility(View.VISIBLE);
+        sendMessage.setVisibility(View.GONE);
 
         bacView = (TextView) findViewById(R.id.bac_text);
         ListView list = (ListView) findViewById(R.id.drink_list);
@@ -126,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
     	String text = Settings.getMessageToSend();
     	SmsManager smsManager = SmsManager.getDefault();
     	smsManager.sendTextMessage(Settings.getContact().getNumber(), null, text, null, null);
-    //	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("sms:"
-      //          + Settings.getContact().getNumber())));
+    	Toast.makeText(getApplicationContext(), "A SMS has been sent to " + Settings.getContact().getName(), 
+    			   Toast.LENGTH_SHORT).show();
     }
     
     
@@ -139,8 +139,9 @@ public class MainActivity extends AppCompatActivity {
         bacView.setText(DecimalFormat.getInstance().format(bac));
         
         
-        if (bac >= 0) // change value
+        if (bac >= 1) // change value
         {
+            sendMessage.setText("Send SMS to " + Settings.getContact().getName());
             sendMessage.setVisibility(View.VISIBLE);
         }
         

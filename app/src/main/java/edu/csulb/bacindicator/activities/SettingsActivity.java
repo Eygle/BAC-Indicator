@@ -1,5 +1,6 @@
 package edu.csulb.bacindicator.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +19,7 @@ import android.util.Log;
 import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.models.Settings;
 
+@SuppressLint("NewApi")
 public class SettingsActivity extends PreferenceActivity implements
 		SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -36,7 +38,6 @@ public class SettingsActivity extends PreferenceActivity implements
 		final CheckBoxPreference checkbox = (CheckBoxPreference) findPreference("appText");
 		final EditTextPreference message = (EditTextPreference) findPreference("message");
 
-		final EditTextPreference height = (EditTextPreference) findPreference("height");
 		final EditTextPreference weight = (EditTextPreference) findPreference("weight");
 
 		final ListPreference gender = (ListPreference) findPreference("gender");
@@ -47,10 +48,14 @@ public class SettingsActivity extends PreferenceActivity implements
 		
 		if (Settings.getMessage().compareTo("-1") != 0)
 		message.setSummary(Settings.getMessage());
-		if (Settings.getHeight().compareTo("-1") != 0)
-		height.setSummary(Settings.getHeight());
+		
 		if (Settings.getWeight().compareTo("-1") != 0)
-		weight.setSummary(Settings.getWeight());
+		{
+			if (Settings.getUnit().compareTo("Metric") == 0)
+			weight.setSummary(Settings.getWeight() + " kg");
+			else
+			weight.setSummary(Settings.getWeight() + " lbs");
+		}
 		if (Settings.getGender().compareTo("-1") != 0)
 		gender.setSummary(Settings.getGender());
 		if (Settings.getUnit().compareTo("-1") != 0)
@@ -97,9 +102,29 @@ public class SettingsActivity extends PreferenceActivity implements
 		
 		@SuppressWarnings("deprecation")
 		Preference pref = findPreference(key);
+		if (key.compareTo("unit") == 0)
+		{
+			@SuppressWarnings("deprecation")
+			Preference k = findPreference("weight");
+			EditTextPreference etp = (EditTextPreference) k;
+
+			if (Settings.getUnit().compareTo("Metric") == 0)
+                k.setSummary(etp.getText() + " kg");
+    			else
+                k.setSummary(etp.getText() + " lbs");
+		}
         if (pref instanceof EditTextPreference) {
-            EditTextPreference etp = (EditTextPreference) pref;
+        	EditTextPreference etp = (EditTextPreference) pref;
             pref.setSummary(etp.getText());
+            System.out.println(key);
+        	if (key.compareTo("weight") == 0)
+        	{
+        		if (Settings.getUnit().compareTo("Metric") == 0)
+                    pref.setSummary(etp.getText() + " kg");
+        			else
+                    pref.setSummary(etp.getText() + " lbs");
+        	}
+            
         }
         else  if (pref instanceof ListPreference) {
         	ListPreference etp = (ListPreference) pref;

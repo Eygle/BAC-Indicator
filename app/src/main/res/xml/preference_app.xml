@@ -6,12 +6,12 @@
             android:inputType="number"
             android:key="height"
             android:summary="@string/hint_height"
-            android:title="@string/height"/>
+            android:title="@string/height" />
         <EditTextPreference
             android:inputType="number"
             android:key="weight"
             android:summary="@string/hint_weight"
-            android:title="@string/weight"/>
+            android:title="@string/weight" />
 
         <ListPreference
             android:defaultValue="Male"

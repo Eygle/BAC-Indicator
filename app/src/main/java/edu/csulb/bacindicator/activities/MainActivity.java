@@ -90,14 +90,11 @@ public class MainActivity extends AppCompatActivity {
         list.setAdapter(adapter);
         registerForContextMenu(list);
 
-        // TODO: list empty view
-
-        // tmp
         Settings.init(this);
 
         // Add all games names
-//        games.add("Colors");
-//        games.add("Pint");
+        games.add("Colors");
+        games.add("Pint");
         games.add("Ball");
 
         handler.postDelayed(updateRunnable, updateDelay);
@@ -163,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addDrink(long alcoholId, long measureId, int quantity, boolean repeat) {
         long id = db.createDrink(alcoholId, measureId, quantity);
-        drinks.add(db.getDrink(id));
+        drinks.add(0, db.getDrink(id));
 
         onDrinksUpdate();
 

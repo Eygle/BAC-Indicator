@@ -14,6 +14,7 @@ import edu.csulb.bacindicator.models.Alcohol;
 import edu.csulb.bacindicator.models.AlcoholCategory;
 import edu.csulb.bacindicator.models.Drink;
 import edu.csulb.bacindicator.models.Measure;
+import edu.csulb.bacindicator.models.Settings;
 import edu.csulb.bacindicator.utils.Utils;
 
 /**
@@ -294,7 +295,7 @@ public class BacIndicatorDataSource {
         return database.insert(DBBacIndicatorHelper.TABLE_MEASURE_UNIT, null, values);
     }
 
-    public List<Measure> getAllMeasures(String system) {
+    public List<Measure> getAllMeasures() {
         List<Measure> res = new ArrayList<>();
 
         Cursor cursor = database.rawQuery("SELECT " +
@@ -310,7 +311,7 @@ public class BacIndicatorDataSource {
                 " WHERE tStr." + DBBacIndicatorHelper.COLUMN_STRING_LANG +
                 " LIKE ? AND tMea." + DBBacIndicatorHelper.COLUMMN_MEASURE_UNIT_SYSTEM +
                 " LIKE ?"
-                , new String[]{Utils.getLanguage(), system});
+                , new String[]{Utils.getLanguage(), Settings.getUnit()});
 
         if (cursor != null) {
             while (cursor.moveToNext()) {

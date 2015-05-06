@@ -89,7 +89,7 @@ public class AddDrinkUtil {
         value.setMinValue(1);
         value.setMaxValue(10);
 
-        measureAdapter = new MeasureAdapter(context, db.getAllMeasures(DBBacIndicatorHelper.MEASURE_METRIC));
+        measureAdapter = new MeasureAdapter(context, db.getAllMeasures());
         final Spinner quantityLabel = (Spinner)layout.findViewById(R.id.quantity_labels);
         quantityLabel.setAdapter(measureAdapter);
 

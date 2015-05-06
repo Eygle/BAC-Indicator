@@ -121,27 +121,25 @@ public class BallGameView extends GameView implements SensorEventListener {
 
         if (mBall.isInTheCircle(mHorizontalBound, mVerticalBound, ZONE_SIZE)) {
             if (toSeconds(updateTime - startTime) > GAME_MAX_LENGTH_SEC) {
-                // TODO: display success then success?
                 success();
             } else if (outTime != 0) {
                 startTime += (outTime - startTime);
                 outTime = 0;
             }
             mTextPaint.setColor(Color.BLACK);
-            canvas.drawText(toSeconds(updateTime - startTime) + " sec." , mHorizontalBound / 2, 100, mTextPaint);
+            // canvas.drawText(toSeconds(updateTime - startTime) + " sec." , mHorizontalBound / 2, 100, mTextPaint);
         } else {
             if (outTime == 0) {
                 outTime = updateTime;
             } else if (toSeconds(updateTime - outTime) > OUT_MAX_TIME_SEC) {
-                // TODO: wait a little then fail?
                 failure();
             }
             mTextPaint.setColor(Color.RED);
-            canvas.drawText(toSeconds(updateTime - outTime) + " sec." , mHorizontalBound / 2, 100, mTextPaint);
+            // canvas.drawText(toSeconds(updateTime - outTime) + " sec." , mHorizontalBound / 2, 100, mTextPaint);
         }
 
         mCirclePaint.setColor(Color.RED);
-        canvas.drawCircle(mBall.mPosX, mBall.mPosY, BALL_SIZE, mCirclePaint); // draw ball above everything else
+        // canvas.drawCircle(mBall.mPosX, mBall.mPosY, BALL_SIZE, mCirclePaint); // draw ball above everything else
 
         invalidate();
     }

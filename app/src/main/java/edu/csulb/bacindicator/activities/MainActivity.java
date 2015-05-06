@@ -4,7 +4,6 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,11 +19,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.adapters.DrinkListAdapter;
 import edu.csulb.bacindicator.db.BacIndicatorDataSource;
@@ -137,10 +138,8 @@ public class MainActivity extends ActionBarActivity {
         adapter.notifyDataSetChanged();
         float bac = BAC.calculate(drinks);
         bacView.setText(DecimalFormat.getInstance().format(bac));
-        
-        
-        if (bac >= 1) // change value
-        {
+
+        if (bac >= BAC.BAC_LEGAL_LIMIT) {
             sendMessage.setText("Send SMS to " + Settings.getContact().getName());
             sendMessage.setVisibility(View.VISIBLE);
         }

@@ -395,26 +395,26 @@ public class BacIndicatorDataSource {
 
         // Metrics units
         stringId = createString("shot", DBBacIndicatorHelper.LANG_FR);
-        createString("shot", DBBacIndicatorHelper.LANG_EN);
+        createString("shot", DBBacIndicatorHelper.LANG_EN, stringId);
         createMeasure(stringId, 0.044f, DBBacIndicatorHelper.MEASURE_METRIC);
         createMeasure(stringId, 0.044f, DBBacIndicatorHelper.MEASURE_IMPERIAL);
 
         stringId = createString("verre", DBBacIndicatorHelper.LANG_FR);
-        createString("glass", DBBacIndicatorHelper.LANG_EN);
+        createString("glass", DBBacIndicatorHelper.LANG_EN, stringId);
         createMeasure(stringId, 0.12f, DBBacIndicatorHelper.MEASURE_METRIC);
         createMeasure(stringId, 0.12f, DBBacIndicatorHelper.MEASURE_IMPERIAL);
 
         stringId = createString("demi", DBBacIndicatorHelper.LANG_FR);
-        createString("quarter of liter", DBBacIndicatorHelper.LANG_EN);
+        createString("quarter of liter", DBBacIndicatorHelper.LANG_EN, stringId);
         createMeasure(stringId, 0.25f, DBBacIndicatorHelper.MEASURE_METRIC);
 
         stringId = createString("pinte", DBBacIndicatorHelper.LANG_FR);
-        createString("pint", DBBacIndicatorHelper.LANG_EN);
+        createString("pint", DBBacIndicatorHelper.LANG_EN, stringId);
         createMeasure(stringId, 0.5f, DBBacIndicatorHelper.MEASURE_METRIC);
         createMeasure(stringId, 0.47f, DBBacIndicatorHelper.MEASURE_IMPERIAL);
 
         stringId = createString("bock", DBBacIndicatorHelper.LANG_FR);
-        createString("liter", DBBacIndicatorHelper.LANG_EN);
+        createString("liter", DBBacIndicatorHelper.LANG_EN, stringId);
         createMeasure(stringId, 1f, DBBacIndicatorHelper.MEASURE_METRIC);
         createMeasure(stringId, 1f, DBBacIndicatorHelper.MEASURE_IMPERIAL);
     }

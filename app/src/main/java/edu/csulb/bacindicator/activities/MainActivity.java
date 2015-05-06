@@ -110,6 +110,7 @@ public class MainActivity extends ActionBarActivity {
         if (menuGameItem != null) {
             menuGameItem.setVisible(Settings.isGameMode());
         }
+        onDrinksUpdate();
     }
 
     @Override

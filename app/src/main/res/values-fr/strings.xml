@@ -66,4 +66,7 @@
     <string name="title_ball_game">Démarrez le jeu de la balle</string>
     <string name="message_ball_game">Gardez la balle dans le cercle. Ne bougez pas trop !</string>
     <string name="message_no_sensor">Aucun capteur trouvé sur ce téléphone. Impossible de jouer à ce jeu.</string>
+
+    <string name="button_sms_text">Envoyer un SMS à %s</string>
+    <string name="sms_send">Un SMS à été envoyé à %s</string>
 </resources>

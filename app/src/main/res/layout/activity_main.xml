@@ -10,15 +10,17 @@
     tools:context=".MainActivity">
 
     
-        <Button
-            android:id="@+id/buttonCall"
+    <Button
+        android:id="@+id/buttonCall"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:onClick="sendSMS"
-		android:background="#2ecc71" />
-    
+		android:background="@drawable/btn_background"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_marginBottom="15dp"/>
     
     <TextView
         android:layout_width="wrap_content"

@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +25,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.adapters.DrinkListAdapter;
@@ -129,8 +127,9 @@ public class MainActivity extends ActionBarActivity {
     	String text = Settings.getMessageToSend();
     	SmsManager smsManager = SmsManager.getDefault();
     	smsManager.sendTextMessage(Settings.getContact().getNumber(), null, text, null, null);
-    	Toast.makeText(getApplicationContext(), "A SMS has been sent to " + Settings.getContact().getName(), 
-    			   Toast.LENGTH_SHORT).show();
+    	Toast.makeText(getApplicationContext(),
+                String.format(getString(R.string.sms_send), Settings.getContact().getName()),
+                Toast.LENGTH_SHORT).show();
     }
     
     
@@ -139,10 +138,10 @@ public class MainActivity extends ActionBarActivity {
         adapter.addAll(drinks);
         adapter.notifyDataSetChanged();
         float bac = BAC.calculate(drinks);
-        bacView.setText(DecimalFormat.getInstance().format(bac));
+        bacView.setText(DecimalFormat.getInstance().format(bac) + "%");
 
-        if (bac >= BAC.BAC_LEGAL_LIMIT) {
-            sendMessage.setText("Send SMS to " + Settings.getContact().getName());
+        if (bac >= BAC.BAC_LEGAL_LIMIT && Settings.getContact() != null) {
+            sendMessage.setText(String.format(getString(R.string.button_sms_text), Settings.getContact().getName()));
             sendMessage.setVisibility(View.VISIBLE);
         }
         

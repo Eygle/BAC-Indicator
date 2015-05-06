@@ -73,4 +73,7 @@
     <string name="title_ball_game">Start the ball game</string>
     <string name="message_ball_game">Keep the ball the circle, don\'t move too much!</string>
     <string name="message_no_sensor">No sensor found on this phone. Impossible to play this game.</string>
+
+    <string name="button_sms_text">Send SMS to %s</string>
+    <string name="sms_send">A SMS has been send to %s</string>
 </resources>

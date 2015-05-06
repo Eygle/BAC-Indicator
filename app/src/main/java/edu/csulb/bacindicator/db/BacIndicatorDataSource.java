@@ -394,6 +394,46 @@ public class BacIndicatorDataSource {
         createAlcohol(catId, "Famous Grouse", 40f);
         createAlcohol(catId, "J&B", 40f);
 
+        // Gin
+        stringId = createString("Gin", DBBacIndicatorHelper.LANG_FR);
+        createString("Gin", DBBacIndicatorHelper.LANG_EN, stringId);
+        catId = createCategory(stringId);
+
+        createAlcohol(catId, "Beefeater", 50f);
+        createAlcohol(catId, "Tanqueray", 47.3f);
+        createAlcohol(catId, "Bombay Sapphirel", 40f);
+        createAlcohol(catId, "Hendrick's", 41.4f);
+        createAlcohol(catId, "Gordon's", 47.6f);
+        createAlcohol(catId, "Plymouth", 41.2f);
+        createAlcohol(catId, "New Amsterdam", 40f);
+
+        // Tequila
+        stringId = createString("Tequila", DBBacIndicatorHelper.LANG_FR);
+        createString("Tequila", DBBacIndicatorHelper.LANG_EN, stringId);
+        catId = createCategory(stringId);
+
+        createAlcohol(catId, "Jose Cuervo", 50f);
+        createAlcohol(catId, "Calle 23", 47.3f);
+        createAlcohol(catId, "El Jimador", 40f);
+        createAlcohol(catId, "Olmeca ", 38f);
+        createAlcohol(catId, "Don Julio", 40f);
+        createAlcohol(catId, "Tapatio", 40f);
+        createAlcohol(catId, "Patron", 40f);
+
+        // Tequila
+        stringId = createString("Whisky", DBBacIndicatorHelper.LANG_FR);
+        createString("Whisky", DBBacIndicatorHelper.LANG_EN, stringId);
+        catId = createCategory(stringId);
+
+        createAlcohol(catId, "Maker's Mark", 45f);
+        createAlcohol(catId, "Jack Daniel's", 40f);
+        createAlcohol(catId, "Woodford Reserve", 50f);
+        createAlcohol(catId, "Maker's Mark", 45.2f);
+        createAlcohol(catId, "Rittenhouse", 40f);
+        createAlcohol(catId, "Jameson", 40f);
+        createAlcohol(catId, "Jim Beam", 44f);
+        createAlcohol(catId, "Four Roses", 40f);
+
         // Metrics units
         stringId = createString("shot", DBBacIndicatorHelper.LANG_FR);
         createString("shot", DBBacIndicatorHelper.LANG_EN, stringId);

@@ -41,7 +41,7 @@ public class BAC {
     private static float getWeight() {
         int weight = Integer.valueOf(Settings.getWeight());
 
-        if (weight == 0) {
+        if (weight < 1) {
             return DEFAULT_WEIGHT;
         }
         return (Settings.getUnit().equals("Metric") ? weight * KGS_TO_LBS : weight);

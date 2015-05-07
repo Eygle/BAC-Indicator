@@ -8,7 +8,9 @@ public class BAC {
 
     public static final float BAC_LEGAL_LIMIT = 0.08f;
     public static final float BAC_RECOMMENDED_LIMIT = 0.03f;
+
     private static final float KGS_TO_LBS = 2.20462262f;
+
     private static final float DEFAULT_WEIGHT = 130;
 
     /*
@@ -41,7 +43,7 @@ public class BAC {
     private static float getWeight() {
         int weight = Integer.valueOf(Settings.getWeight());
 
-        if (weight < 1) {
+        if (weight < 50 || weight > 800) {
             return DEFAULT_WEIGHT;
         }
         return (Settings.getUnit().equals("Metric") ? weight * KGS_TO_LBS : weight);

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.activities.MainActivity;
@@ -15,11 +16,15 @@ import edu.csulb.bacindicator.games.pint.PintGameView;
  * Created by Johan on 30/04/2015.
  */
 public class GameActivity extends Activity {
+
     private GameView gameView;
+
+//    private PowerManager.WakeLock mWakeLock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         Bundle b = getIntent().getExtras();
         String g = b.getString("game");
@@ -42,9 +47,14 @@ public class GameActivity extends Activity {
                 title = getString(R.string.title_ball_game);
                 message = getString(R.string.message_ball_game);
                 break;
+            default:
+                finish();
         }
 
         setContentView(gameView);
+//
+//        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+//        mWakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, this.getClass().getName());
 
         new AlertDialog.Builder(this)
                 .setTitle(title)
@@ -71,6 +81,18 @@ public class GameActivity extends Activity {
                 .setCancelable(false)
                 .create()
                 .show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        mWakeLock.acquire();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        mWakeLock.release();
     }
 
     @Override

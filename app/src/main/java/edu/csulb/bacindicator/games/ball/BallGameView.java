@@ -3,6 +3,7 @@ package edu.csulb.bacindicator.games.ball;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -43,7 +44,6 @@ public class BallGameView extends GameView implements SensorEventListener {
 
     public BallGameView(Activity context) {
         super(context);
-        initialize();
     }
 
     private static long toSeconds(long nanoSeconds) {
@@ -56,19 +56,29 @@ public class BallGameView extends GameView implements SensorEventListener {
 
         mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
 
-        Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+//        Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (sensor == null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-            builder.setIcon(R.mipmap.ic_launcher);
-            builder.setMessage(R.string.message_no_sensor);
-            builder.setTitle(R.string.app_name);
-            builder.create().show();
-            failure();
+            if (sensor == null) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                builder.setIcon(R.mipmap.ic_launcher);
+                builder.setMessage(R.string.message_no_sensor);
+                builder.setTitle(R.string.app_name);
+                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        failure();
+                    }
+                });
+                builder.create().show();
 
 //            context.setResult(MainActivity.RESULT_SKIPPED);
 //            context.finish();
-            return;
+                return;
+            }
         }
 
         mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
@@ -90,12 +100,14 @@ public class BallGameView extends GameView implements SensorEventListener {
 
         Bitmap ball = BitmapFactory.decodeResource(getResources(), R.drawable.no);
         test = Bitmap.createScaledBitmap(ball, BALL_SIZE, BALL_SIZE, true);
+
+        invalidate();
     }
 
     @Override
     public void start() {
+        initialize();
         startTime = System.nanoTime();
-        invalidate();
     }
 
     @Override
@@ -114,7 +126,8 @@ public class BallGameView extends GameView implements SensorEventListener {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-//        if (startTime == 0) return;
+        if (startTime == 0)
+            return;
 
 //        long updateTime = System.currentTimeMillis();
 

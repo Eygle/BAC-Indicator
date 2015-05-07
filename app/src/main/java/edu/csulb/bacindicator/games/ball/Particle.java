@@ -15,7 +15,7 @@ public class Particle {
     }
 
     public void updatePosition(float sx, float sy, float sz, long timestamp) {
-        float dt = (System.nanoTime() - timestamp) / 100000000.0f;
+        float dt = (System.nanoTime() - timestamp) / 50000000.0f;
 
         mVelX += -sx * dt;
         mVelY += -sy * dt;

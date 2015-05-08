@@ -161,7 +161,7 @@ public class BallGameView extends GameView implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER || event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             mSensorTimestamp = System.nanoTime();
             switch (mDisplay.getRotation()) {
                 case Surface.ROTATION_0:

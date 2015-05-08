@@ -59,7 +59,7 @@
 
     <!-- Games -->
     <string name="game_win_title">You won !</string>
-    <string name="game_win_message">You seems not to be that drunk.\nThat doesn\'t mean you can drive thought !\Be responsible.</string>
+    <string name="game_win_message">You seems not to be that drunk.\nThat doesn\'t mean you can drive thought !\nBe responsible.</string>
     <string name="game_loose_title">You lost !</string>
     <string name="game_loose_message">Don\t try to drive if you drunk alcohol !</string>
 

@@ -40,19 +40,18 @@
     <string name="hint_gender">Indiquez votre sexe</string>
     <string name="hint_app_text">Cochez la checkbox pour utiliser le message de l\'application</string>
     <string name="hint_game_mode">Sélectionnez la checkbox pour activer les jeux</string>
-    <string name="hint_friend">Sélectionner une personne à contacter d\'urgence</string>
+    <string name="hint_friend">Sélectionnez une personne à contacter d\'urgence</string>
     <string name="hint_message">Ecrivez votre message pour votre contact</string>
     <string name="hint_units">Sélectionnez le système d\'unité à utiliser</string>
 
     <string name="context_menu_title">Actions</string>
-    <string name="context_menu_delete">Supprimez la boisson</string>
+    <string name="context_menu_delete">Supprimer la boisson</string>
     <string name="bac">Pourcentage d\'alcool dans le sang :</string>
-    <string name="default_bac">0.00</string>
     <string name="drink_format">%1$d %2$s de %3$s</string>
 
     <!-- Games -->
     <string name="game_win_title">Vous avez gagné !</string>
-    <string name="game_win_message">Vous ne semblez pas si soul. Cependant, ça ne veut pas dire que vous pouvez conduire ! Soyez reponsable.</string>
+    <string name="game_win_message">Vous ne semblez pas si saoul. Cependant, ça ne veut pas dire que vous pouvez conduire ! Soyez reponsable.</string>
     <string name="game_loose_title">Vous avez perdu !</string>
     <string name="game_loose_message">Ne prennez pas le volant si vous avez bu !</string>
 

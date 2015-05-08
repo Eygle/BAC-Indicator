@@ -116,7 +116,6 @@ public class SettingsActivity extends PreferenceActivity implements
         if (pref instanceof EditTextPreference) {
         	EditTextPreference etp = (EditTextPreference) pref;
             pref.setSummary(etp.getText());
-            System.out.println(key);
         	if (key.compareTo("weight") == 0)
         	{
         		if (Settings.getUnit().compareTo("Metric") == 0)
@@ -131,7 +130,6 @@ public class SettingsActivity extends PreferenceActivity implements
             pref.setSummary(etp.getValue());
         }
         else  if (pref.getKey().compareTo("friend") == 0 && Settings.getContact() != null) {
-        	//Preference etp = (Preference) pref;
             pref.setSummary(Settings.getContact().getName());
         }
    	

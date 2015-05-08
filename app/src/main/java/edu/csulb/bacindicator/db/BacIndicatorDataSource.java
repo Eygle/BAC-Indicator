@@ -15,7 +15,7 @@ import edu.csulb.bacindicator.models.AlcoholCategory;
 import edu.csulb.bacindicator.models.Drink;
 import edu.csulb.bacindicator.models.Measure;
 import edu.csulb.bacindicator.models.Settings;
-import edu.csulb.bacindicator.utils.Utils;
+import edu.csulb.bacindicator.utils.Language;
 
 /**
  * Created by Johan on 26/04/2015.
@@ -33,7 +33,7 @@ public class BacIndicatorDataSource {
 
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
-        Log.d(TAG, "Check if DB is empty for filling it");
+        // Check is db is empty and fill it
         if (isEmpty()) {
             fillData();
         }
@@ -99,7 +99,7 @@ public class BacIndicatorDataSource {
                 " LIKE ? " +
                 " AND " + DBBacIndicatorHelper.COLUMN_DRINKS_ID + " = " + id +
                 " ORDER BY " + DBBacIndicatorHelper.COLUMN_TIMESTAMP + " DESC"
-                , new String[]{Utils.getLanguage()});
+                , new String[]{Language.getLanguage()});
 
         if (cursor == null || cursor.getCount() == 0)
             return null;
@@ -146,7 +146,7 @@ public class BacIndicatorDataSource {
 
                 " WHERE tStr." + DBBacIndicatorHelper.COLUMN_STRING_LANG +
                 " LIKE ? ORDER BY " + DBBacIndicatorHelper.COLUMN_TIMESTAMP + " DESC"
-                , new String[]{Utils.getLanguage()});
+                , new String[]{Language.getLanguage()});
 
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -229,7 +229,7 @@ public class BacIndicatorDataSource {
                 " = tStr." + DBBacIndicatorHelper.COLUMN_STR_ID +
                 " WHERE tStr." + DBBacIndicatorHelper.COLUMN_STRING_LANG +
                 " LIKE ?"
-                , new String[]{Utils.getLanguage()});
+                , new String[]{Language.getLanguage()});
 
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -311,7 +311,7 @@ public class BacIndicatorDataSource {
                 " WHERE tStr." + DBBacIndicatorHelper.COLUMN_STRING_LANG +
                 " LIKE ? AND tMea." + DBBacIndicatorHelper.COLUMMN_MEASURE_UNIT_SYSTEM +
                 " LIKE ?"
-                , new String[]{Utils.getLanguage(), Settings.getUnit()});
+                , new String[]{Language.getLanguage(), Settings.getUnit()});
 
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -344,7 +344,6 @@ public class BacIndicatorDataSource {
     }
 
     public void fillData() {
-        Log.d(TAG, "fill DB data");
         long stringId, catId;
 
         // Beers

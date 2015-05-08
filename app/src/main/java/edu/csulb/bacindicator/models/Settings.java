@@ -59,10 +59,8 @@ public class Settings {
 	
 	
 	public static void createMyContact() {
-		System.out.println("CRETAE CONTACT");
-		String name = null;
-		String number = null;
-		Log.d("id_contact", Settings.getIdContact());
+		String name;
+		String number;
 		Cursor cursorPhone = context.getContentResolver().query(
 				ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
 				new String[] { ContactsContract.CommonDataKinds.Phone.NUMBER,
@@ -75,7 +73,6 @@ public class Settings {
 				new String[] { Settings.getIdContact() }, null);
 
 		if (cursorPhone.moveToFirst()) {
-			System.out.println("GO GET NAME !!");
 			name = cursorPhone
 					.getString(cursorPhone
 							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
@@ -86,7 +83,6 @@ public class Settings {
 					number));
 		} else {
 			Toast.makeText(context, R.string.invalid_contact, Toast.LENGTH_SHORT).show();
-			Log.d("create my contact", "No contact");
 		}
 		cursorPhone.close();
 	}
@@ -107,8 +103,7 @@ public class Settings {
 	}
 
 	/**
-	 * @param contact
-	 *            the contact to set
+	 * @param idcontact the contact to set
 	 */
 	public static void setIdContact(String idcontact) {
 		Settings.idContact = idcontact;
@@ -229,7 +224,6 @@ public class Settings {
 	    Location myLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 	    if (myLocation == null)
 	    {
-	    	Log.d("Location status", "NULL");
 	    	return;
 	    }
 	    double longitude = myLocation.getLongitude();
@@ -239,7 +233,6 @@ public class Settings {
 		//Locations loc = new Locations(context);
 		
 	    AppMessage += "https://www.google.co.id/maps/@"+latitude+","+longitude;
-	    Log.d("App Message: " , AppMessage);
 	}
 
 }

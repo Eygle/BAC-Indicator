@@ -18,15 +18,21 @@ public class BAC {
       */
     public static float calculate(List<Drink> drinks) {
         long currTime = System.currentTimeMillis();
+        long lastDrink = currTime;
         float alcoholDistributionRatio = alcoholDistributionRatio();
         float bac = 0.0f;
 
         for (Drink drink : drinks) {
             float A = (drink.liters * 33.814f) * (drink.vol / 100) * drink.quantity;
             float H = ((float) currTime - drink.time) / (1000 * 60 * 60);
-            bac += Math.max((A * 5.14f / getWeight() * alcoholDistributionRatio) - (0.015f * H), 0.0f);
+            float tmpBac = (A * 5.14f / getWeight() * alcoholDistributionRatio);
+            if ((tmpBac - 0.015f * H) > 0.0f) { // if drink not dissipated, use it
+                bac += tmpBac;
+                lastDrink = Math.min(lastDrink, drink.time);
+            }
         }
-        return (bac);
+        float H = ((float) currTime - lastDrink) / (1000 * 60 * 60);
+        return (Math.max(bac - (0.015f * H), 0.0f));
     }
 
     public static int getColor(float bac) {

@@ -5,8 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -24,9 +24,9 @@ import edu.csulb.bacindicator.games.GameView;
 public class BallGameView extends GameView implements SensorEventListener {
 
     private static final int BALL_SIZE = 50;
-    private static final int ZONE_SIZE = 125;
+    private static final int ZONE_SIZE = 175;
     private static final int OUT_MAX_TIME_SEC = 3;
-    private static final int GAME_MAX_LENGTH_SEC = 60;
+    private static final int GAME_MAX_LENGTH_SEC = 20;
     private Display mDisplay;
     private SensorManager mSensorManager;
     private float mHorizontalBound;
@@ -57,7 +57,6 @@ public class BallGameView extends GameView implements SensorEventListener {
         mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
 
         Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-//        Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (sensor == null) {
             sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
@@ -86,20 +85,17 @@ public class BallGameView extends GameView implements SensorEventListener {
         mHorizontalBound = mDisplay.getWidth();
         mVerticalBound = mDisplay.getHeight();
 
-//        mCirclePaint = new Paint();
-//        mCirclePaint.setStyle(Paint.Style.FILL);
-//        mCirclePaint.setColor(Color.RED);
+        mCirclePaint = new Paint();
+        mCirclePaint.setStyle(Paint.Style.FILL);
+        mCirclePaint.setColor(Color.RED);
 
         mBall = new Particle(mHorizontalBound / 2, mVerticalBound / 2);
 
-//        mTextPaint = new Paint();
-//        mTextPaint.setColor(Color.BLACK);
-//        mTextPaint.setStyle(Paint.Style.FILL);
-//        mTextPaint.setTextAlign(Paint.Align.CENTER);
-//        mTextPaint.setTextSize(50);
-
-        Bitmap ball = BitmapFactory.decodeResource(getResources(), R.drawable.no);
-        test = Bitmap.createScaledBitmap(ball, BALL_SIZE, BALL_SIZE, true);
+        mTextPaint = new Paint();
+        mTextPaint.setColor(Color.BLACK);
+        mTextPaint.setStyle(Paint.Style.FILL);
+        mTextPaint.setTextAlign(Paint.Align.CENTER);
+        mTextPaint.setTextSize(80);
 
         invalidate();
     }
@@ -129,37 +125,36 @@ public class BallGameView extends GameView implements SensorEventListener {
         if (startTime == 0)
             return;
 
-//        long updateTime = System.currentTimeMillis();
+        long updateTime = System.nanoTime();
 
         mBall.updatePosition(mSensorX, mSensorY, 0, mSensorTimestamp);
         mBall.resolveCollisionWithBounds(mHorizontalBound, mVerticalBound, BALL_SIZE);
 
-//        canvas.drawColor(Color.WHITE);
-//        mCirclePaint.setColor(Color.BLUE);
-        // canvas.drawCircle(mHorizontalBound / 2, mVerticalBound / 2, ZONE_SIZE, mCirclePaint);
+        canvas.drawColor(Color.parseColor("#ecf0f1"));
+        mCirclePaint.setColor(Color.parseColor("#2980b9"));
+        canvas.drawCircle(mHorizontalBound / 2, mVerticalBound / 2, ZONE_SIZE, mCirclePaint);
 
-//        if (mBall.isInTheCircle(mHorizontalBound, mVerticalBound, ZONE_SIZE)) {
-//            if (toSeconds(updateTime - startTime) > GAME_MAX_LENGTH_SEC) {
-//                success();
-//            } else if (outTime != 0) {
-//                startTime += (outTime - startTime);
-//                outTime = 0;
-//            }
-//            mTextPaint.setColor(Color.BLACK);
-//            // canvas.drawText(toSeconds(updateTime - startTime) + " sec." , mHorizontalBound / 2, 100, mTextPaint);
-//        } else {
-//            if (outTime == 0) {
-//                outTime = updateTime;
-//            } else if (toSeconds(updateTime - outTime) > OUT_MAX_TIME_SEC) {
-//                failure();
-//            }
-//            mTextPaint.setColor(Color.RED);
-//            // canvas.drawText(toSeconds(updateTime - outTime) + " sec." , mHorizontalBound / 2, 100, mTextPaint);
-//        }
+        if (mBall.isInTheCircle(mHorizontalBound, mVerticalBound, ZONE_SIZE)) {
+            if (toSeconds(updateTime - startTime) > GAME_MAX_LENGTH_SEC) {
+                success();
+            } else if (outTime != 0) {
+                startTime += (outTime - startTime);
+                outTime = 0;
+            }
+            mTextPaint.setColor(Color.BLACK);
+            canvas.drawText(toSeconds(updateTime - startTime) + " sec.", mHorizontalBound / 2, 100, mTextPaint);
+        } else {
+            if (outTime == 0) {
+                outTime = updateTime;
+            } else if (toSeconds(updateTime - outTime) > OUT_MAX_TIME_SEC) {
+                failure();
+            }
+            mTextPaint.setColor(Color.RED);
+            canvas.drawText(toSeconds(updateTime - outTime) + " sec.", mHorizontalBound / 2, 100, mTextPaint);
+        }
 
-//        mCirclePaint.setColor(Color.RED);
-//        canvas.drawCircle(mBall.mPosX, mBall.mPosY, BALL_SIZE, mCirclePaint); // draw ball above everything else
-        canvas.drawBitmap(test, mBall.mPosX, mBall.mPosY, null);
+        mCirclePaint.setColor(Color.parseColor("#c0392b"));
+        canvas.drawCircle(mBall.mPosX, mBall.mPosY, BALL_SIZE, mCirclePaint); // draw ball above everything else
 
         invalidate();
     }

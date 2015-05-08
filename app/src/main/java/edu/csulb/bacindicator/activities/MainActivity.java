@@ -144,6 +144,8 @@ public class MainActivity extends ActionBarActivity {
         if (bac >= BAC.BAC_LEGAL_LIMIT && Settings.getContact() != null) {
             sendMessage.setText(String.format(getString(R.string.button_sms_text), Settings.getContact().getName()));
             sendMessage.setVisibility(View.VISIBLE);
+        } else {
+            sendMessage.setVisibility(View.GONE);
         }
         
         int newColor = BAC.getColor(bac);

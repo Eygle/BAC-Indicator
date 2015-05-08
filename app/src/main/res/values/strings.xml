@@ -76,4 +76,5 @@
 
     <string name="button_sms_text">Send SMS to %s</string>
     <string name="sms_send">A SMS has been send to %s</string>
+    <string name="invalid_contact">You cannot select this contact.</string>
 </resources>

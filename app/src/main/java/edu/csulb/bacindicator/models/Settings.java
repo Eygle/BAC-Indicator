@@ -1,7 +1,7 @@
 package edu.csulb.bacindicator.models;
 
 import edu.csulb.bacindicator.R;
-import edu.csulb.bacindicator.utils.MyContact;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.Toast;
 
 public class Settings {
 
@@ -83,8 +84,10 @@ public class Settings {
 							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 			Settings.addContact(new MyContact(Settings.getIdContact(), name,
 					number));
-		} else
+		} else {
+			Toast.makeText(context, R.string.invalid_contact, Toast.LENGTH_SHORT).show();
 			Log.d("create my contact", "No contact");
+		}
 		cursorPhone.close();
 	}
 

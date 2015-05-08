@@ -1,4 +1,4 @@
-package edu.csulb.bacindicator.utils;
+package edu.csulb.bacindicator.models;
 
 public class MyContact {
 

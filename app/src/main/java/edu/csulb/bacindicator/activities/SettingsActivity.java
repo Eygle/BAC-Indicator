@@ -60,8 +60,8 @@ public class SettingsActivity extends PreferenceActivity implements
 		gender.setSummary(Settings.getGender());
 		if (Settings.getUnit().compareTo("-1") != 0)
 		units.setSummary(Settings.getUnit());
-		if (Settings.getIdContact().compareTo("-1") != 0)
-		contact.setSummary(Settings.getContact().getName());
+		if (Settings.getContact() != null)
+			contact.setSummary(Settings.getContact().getName());
 
 		
 		
@@ -130,7 +130,7 @@ public class SettingsActivity extends PreferenceActivity implements
         	ListPreference etp = (ListPreference) pref;
             pref.setSummary(etp.getValue());
         }
-        else  if (pref.getKey().compareTo("friend") == 0) {
+        else  if (pref.getKey().compareTo("friend") == 0 && Settings.getContact() != null) {
         	//Preference etp = (Preference) pref;
             pref.setSummary(Settings.getContact().getName());
         }
@@ -163,10 +163,10 @@ public class SettingsActivity extends PreferenceActivity implements
 					 "ID of newly added contact is : " + newId + " Name is : "
 					 + name);
 						
-					 System.out.println("name: " + name);
+					// System.out.println("name: " + name);
 					 Settings.createMyContact();
-						
-						System.out.println("activity result" + Settings.getContact().getName());
+
+					//System.out.println("activity result" + Settings.getContact().getName());
 				}
 			}
 		}

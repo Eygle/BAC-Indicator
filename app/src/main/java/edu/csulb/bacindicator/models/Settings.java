@@ -56,9 +56,12 @@ public class Settings {
 		return appText ? AppMessage : message;
 	}
 	
+	public static boolean createMyContact() {
+		return Settings.createMyContact(Settings.getIdContact());
+	}
 	
-	
-	public static void createMyContact() {
+	public static boolean createMyContact(String contactId) {
+		boolean ret = false;
 		String name;
 		String number;
 		Cursor cursorPhone = context.getContentResolver().query(
@@ -70,7 +73,7 @@ public class Settings {
 						+ ContactsContract.CommonDataKinds.Phone.TYPE + " = "
 						+ ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE,
 
-				new String[] { Settings.getIdContact() }, null);
+				new String[] { contactId }, null);
 
 		if (cursorPhone.moveToFirst()) {
 			name = cursorPhone
@@ -79,12 +82,14 @@ public class Settings {
 			number = cursorPhone
 					.getString(cursorPhone
 							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-			Settings.addContact(new MyContact(Settings.getIdContact(), name,
-					number));
+			Settings.addContact(new MyContact(contactId, name, number));
+			ret = true;
 		} else {
 			Toast.makeText(context, R.string.invalid_contact, Toast.LENGTH_SHORT).show();
 		}
 		cursorPhone.close();
+
+		return ret;
 	}
 
 	public static void addContact(MyContact c) {

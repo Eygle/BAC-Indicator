@@ -62,9 +62,6 @@ public class SettingsActivity extends PreferenceActivity implements
 		units.setSummary(Settings.getUnit());
 		if (Settings.getContact() != null)
 			contact.setSummary(Settings.getContact().getName());
-
-		
-		
 		
 		message.setEnabled(!checkbox.isChecked());
 
@@ -92,6 +89,18 @@ public class SettingsActivity extends PreferenceActivity implements
 						return true;
 					}
 				});
+	}
+
+	@Override
+	public void onBackPressed()
+	{
+		if (Settings.getMessage().compareTo("-1") == 0 || Settings.getMessage() == null || Settings.getMessage().isEmpty())
+		{
+			CheckBoxPreference checkbox = (CheckBoxPreference) findPreference("appText");
+			checkbox.setChecked(true);
+			Settings.setAppText(true);
+		}
+		finish();
 	}
 
 	@Override
@@ -140,31 +149,20 @@ public class SettingsActivity extends PreferenceActivity implements
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 1) {
 			if (resultCode == RESULT_OK) {
-
 				Uri contactData = data.getData();
 				Cursor cursor = managedQuery(contactData, null, null, null,
 						null);
 				if (cursor.moveToFirst()) {
 					String newId = cursor.getString(cursor.getColumnIndexOrThrow(Contacts._ID));
+					if (Settings.createMyContact(newId)) {
+						SharedPreferences appPreferences = PreferenceManager
+								.getDefaultSharedPreferences(this);
+						SharedPreferences.Editor editor = appPreferences.edit();
 
-					
-					SharedPreferences appPreferences = PreferenceManager
-							.getDefaultSharedPreferences(this);
-					SharedPreferences.Editor editor = appPreferences.edit();
-
-					editor.putString("friend", newId);
-					editor.apply();
-					Settings.setIdContact(newId);
-					 String name =
-					 cursor.getString(cursor.getColumnIndexOrThrow(Contacts.DISPLAY_NAME));
-					 Log.i("New contact Added",
-					 "ID of newly added contact is : " + newId + " Name is : "
-					 + name);
-						
-					// System.out.println("name: " + name);
-					 Settings.createMyContact();
-
-					//System.out.println("activity result" + Settings.getContact().getName());
+						editor.putString("friend", newId);
+						editor.apply();
+						Settings.setIdContact(newId);
+					}
 				}
 			}
 		}

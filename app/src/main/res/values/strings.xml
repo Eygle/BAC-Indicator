@@ -25,13 +25,13 @@
     <!-- Add Dialog -->
     <string name="dialog_add_title">Add a drink</string>
     <string name="dialog_add_quantity_title">Select the quantity</string>
-    <string name="dialog_add_quantity_message">How many %s did you drink ?</string>
+    <string name="dialog_add_quantity_message">How many %s did you drink?</string>
 
     <!-- ERRORS -->
-    <string name="error_no_last_drink">There is no drink to repeat !</string>
+    <string name="error_no_last_drink">There is no drink to repeat!</string>
 
     <!-- SETTINGS -->
-    <string name="appMessage">Can you please come to pick me up ? </string>
+    <string name="appMessage">Can you please come to pick me up? </string>
     <string name="personal_info">Personal Information</string>
     <string name="weight">Weight</string>
     <string name="height">Height</string>
@@ -56,22 +56,22 @@
     <string name="title_activity_contact_picker">ContactPicker</string>
     <string name="context_menu_title">Actions</string>
     <string name="context_menu_delete">Delete drink</string>
-    <string name="bac">Blood Alcohol content :</string>
+    <string name="bac">Blood Alcohol content:</string>
     <string name="default_bac">0.00</string>
     <string name="drink_format">%1$d %2$s of %3$s</string>
 
     <!-- Games -->
-    <string name="game_win_title">You won !</string>
-    <string name="game_win_message">You seems not to be that drunk.\nThat doesn\'t mean you can drive thought !\nBe responsible.</string>
+    <string name="game_win_title">You won!</string>
+    <string name="game_win_message">You seems not to be that drunk.\nThat doesn\'t mean you can drive thought!\nBe responsible.</string>
     <string name="game_loose_title">You lost !</string>
-    <string name="game_loose_message">Don\'t try to drive if you drunk alcohol !</string>
+    <string name="game_loose_message">Don\'t try to drive if you drunk alcohol!</string>
 
-    <string name="game_color_legend">True or false ?</string>
+    <string name="game_color_legend">True or false?</string>
     <string name="game_color_dialog_title">Start the color game</string>
-    <string name="game_color_dialog_text">Press start whenever you are ready !</string>
+    <string name="game_color_dialog_text">Press start whenever you are ready!</string>
 
     <string name="game_pint_dialog_title">Start the pint game</string>
-    <string name="game_pint_dialog_text">Put the pint inside the oval\nPress start whenever you are ready !</string>
+    <string name="game_pint_dialog_text">Put the pint inside the oval\nPress start whenever you are ready!</string>
 
     <string name="title_ball_game">Start the ball game</string>
     <string name="message_ball_game">Keep the ball the circle, don\'t move too much!</string>

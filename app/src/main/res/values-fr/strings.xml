@@ -13,6 +13,9 @@
     <string name="play">Jouer</string>
     <string name="skip">Passer</string>
 
+    <!-- SLASHSCREEN -->
+    <string name="welcome">Bienvenue !\nMerci de bien vouloir commencer par indiquer votre poids et sexe dans les paramètres.</string>
+
     <!-- Add Dialog -->
     <string name="dialog_add_title">Ajouter une boisson</string>
     <string name="dialog_add_quantity_title">Selectionnez la quantité</string>

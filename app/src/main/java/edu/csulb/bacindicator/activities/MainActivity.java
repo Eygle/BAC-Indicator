@@ -30,6 +30,7 @@ import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.adapters.DrinkListAdapter;
 import edu.csulb.bacindicator.db.BacIndicatorDataSource;
 import edu.csulb.bacindicator.games.GameActivity;
+import edu.csulb.bacindicator.libraries.SecretTextView;
 import edu.csulb.bacindicator.models.BAC;
 import edu.csulb.bacindicator.models.Drink;
 import edu.csulb.bacindicator.models.Settings;
@@ -57,6 +58,7 @@ public class MainActivity extends ActionBarActivity {
     private List<String> gamesToPlay = new ArrayList<>();
 
     private Handler handler = new Handler();
+
     private int updateDelay = 10000;
     Runnable updateRunnable = new Runnable() {
         public void run() {
@@ -64,12 +66,19 @@ public class MainActivity extends ActionBarActivity {
             handler.postDelayed(this, updateDelay);
         }
     };
+
     private MenuItem menuGameItem;
+    private boolean isFirstLaunch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        storage = getSharedPreferences(getPackageName(), 0);
+
+        isFirstLaunch = storage.getBoolean("firstLaunch", true);
+
+        setContentView(isFirstLaunch ? R.layout.splash_screen : R.layout.activity_main);
 
         try {
             db = new BacIndicatorDataSource(MainActivity.this);
@@ -78,8 +87,27 @@ public class MainActivity extends ActionBarActivity {
             e.printStackTrace();
         }
 
-        storage = getSharedPreferences(getPackageName(), 0);
+        if (isFirstLaunch) {
+            SecretTextView text = (SecretTextView)findViewById(R.id.welcome_text);
+            text.setDuration(3000);
+            text.show();
 
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    storage.edit().putBoolean("firstLaunch", false).apply();
+                    isFirstLaunch = false;
+                    setContentView(R.layout.activity_main);
+                    findViewById(R.id.main_view).invalidate();
+                    init();
+                }
+            }, 5000);
+        } else {
+            init();
+        }
+    }
+
+    private void init() {
         sendMessage = (Button)findViewById(R.id.buttonCall);
         sendMessage.setVisibility(View.GONE);
 
@@ -110,7 +138,9 @@ public class MainActivity extends ActionBarActivity {
         if (menuGameItem != null) {
             menuGameItem.setVisible(Settings.isGameMode());
         }
-        onDrinksUpdate();
+        if (!isFirstLaunch) {
+            onDrinksUpdate();
+        }
     }
 
     @Override

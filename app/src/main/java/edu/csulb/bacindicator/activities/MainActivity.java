@@ -2,13 +2,12 @@ package edu.csulb.bacindicator.activities;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -20,7 +19,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,9 +34,10 @@ import edu.csulb.bacindicator.models.Drink;
 import edu.csulb.bacindicator.models.Settings;
 import edu.csulb.bacindicator.utils.AddDrinkUtil;
 
-
-@SuppressLint("NewApi")
-public class MainActivity extends ActionBarActivity {
+/**
+ * Created by Johan
+ */
+public class MainActivity extends AppCompatActivity {
 
     public static final int RESULT_FAILED = 424242;
     public static final int RESULT_SKIPPED = 424243;
@@ -80,15 +79,11 @@ public class MainActivity extends ActionBarActivity {
 
         setContentView(isFirstLaunch ? R.layout.splash_screen : R.layout.activity_main);
 
-        try {
-            db = new BacIndicatorDataSource(MainActivity.this);
-            db.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        db = new BacIndicatorDataSource(MainActivity.this);
+        db.open();
 
         if (isFirstLaunch) {
-            SecretTextView text = (SecretTextView)findViewById(R.id.welcome_text);
+            SecretTextView text = (SecretTextView) findViewById(R.id.welcome_text);
             text.setDuration(3000);
             text.show();
 
@@ -108,7 +103,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void init() {
-        sendMessage = (Button)findViewById(R.id.buttonCall);
+        sendMessage = (Button) findViewById(R.id.buttonCall);
         sendMessage.setVisibility(View.GONE);
 
         bacView = (TextView) findViewById(R.id.bac_text);
@@ -152,18 +147,16 @@ public class MainActivity extends ActionBarActivity {
             db.close();
         }
     }
-    
-    public void	sendSMS(View view)
-    {
-    	String text = Settings.getMessageToSend();
-    	SmsManager smsManager = SmsManager.getDefault();
-    	smsManager.sendTextMessage(Settings.getContact().getNumber(), null, text, null, null);
-    	Toast.makeText(getApplicationContext(),
+
+    public void sendSMS(View view) {
+        String text = Settings.getMessageToSend();
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(Settings.getContact().getNumber(), null, text, null, null);
+        Toast.makeText(getApplicationContext(),
                 String.format(getString(R.string.sms_send), Settings.getContact().getName()),
                 Toast.LENGTH_SHORT).show();
     }
-    
-    
+
     public void onDrinksUpdate() {
         adapter.clear();
         adapter.addAll(drinks);
@@ -177,7 +170,7 @@ public class MainActivity extends ActionBarActivity {
         } else {
             sendMessage.setVisibility(View.GONE);
         }
-        
+
         int newColor = BAC.getColor(bac);
         int color = bacView.getCurrentTextColor();
 
@@ -323,7 +316,7 @@ public class MainActivity extends ActionBarActivity {
                 // The user choose to skip the game
                 Toast.makeText(this, "You cancelled the games.", Toast.LENGTH_SHORT).show();
             } else if (resultCode == RESULT_FAILED) {
-               displayFail();
+                displayFail();
             } else if (resultCode == RESULT_SKIPPED) {
                 //Toast.makeText(this, "You skipped the game.", Toast.LENGTH_SHORT).show();
                 if (gamesToPlay.size() > 0) {

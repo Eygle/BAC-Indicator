@@ -3,9 +3,7 @@ package edu.csulb.bacindicator.db;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +16,7 @@ import edu.csulb.bacindicator.models.Settings;
 import edu.csulb.bacindicator.utils.Language;
 
 /**
- * Created by Johan on 26/04/2015.
+ * Created by Johan
  */
 public class BacIndicatorDataSource {
     private final static String TAG = BacIndicatorDataSource.class.getSimpleName();
@@ -31,7 +29,7 @@ public class BacIndicatorDataSource {
         dbHelper = new DBBacIndicatorHelper(context);
     }
 
-    public void open() throws SQLException {
+    public void open() {
         database = dbHelper.getWritableDatabase();
         // Check is db is empty and fill it
         if (isEmpty()) {

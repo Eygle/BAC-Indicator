@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by Johan on 26/04/2015.
+ * Created by Johan
  */
 public class DBBacIndicatorHelper extends SQLiteOpenHelper {
     public final static String DATABASE_NAME = "BacIndicatorDB";

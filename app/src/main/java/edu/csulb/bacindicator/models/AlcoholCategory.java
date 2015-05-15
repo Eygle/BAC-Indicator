@@ -1,7 +1,7 @@
 package edu.csulb.bacindicator.models;
 
 /**
- * Created by Johan on 26/04/2015.
+ * Created by Johan
  */
 public class AlcoholCategory {
     public String name;

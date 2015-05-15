@@ -11,17 +11,16 @@ import android.widget.TextView;
 
 /**
  * Created by matt on 5/27/14.
+ * Github link : https://github.com/matthewrkula/SecretTextView
+ * Apache 2 license
  */
 public class SecretTextView extends TextView {
+    ValueAnimator animator;
     private String mTextString;
     private SpannableString mSpannableString;
-
     private double[] mAlphas;
     private boolean mIsVisible;
     private boolean mIsTextResetting = false;
-    private int mDuration = 2500;
-
-    ValueAnimator animator;
     ValueAnimator.AnimatorUpdateListener listener = new ValueAnimator.AnimatorUpdateListener() {
         @Override
         public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -29,6 +28,7 @@ public class SecretTextView extends TextView {
             resetSpannableString(mIsVisible ? percent : 2.0f - percent);
         }
     };
+    private int mDuration = 2500;
 
     public SecretTextView(Context context) {
         super(context);
@@ -65,13 +65,13 @@ public class SecretTextView extends TextView {
         animator.start();
     }
 
+    public boolean getIsVisible() {
+        return mIsVisible;
+    }
+
     public void setIsVisible(boolean isVisible){
         mIsVisible = isVisible;
         resetSpannableString(isVisible == true ? 2.0f : 0.0f);
-    }
-
-    public boolean getIsVisible(){
-        return mIsVisible;
     }
 
     private void resetSpannableString(double percent){

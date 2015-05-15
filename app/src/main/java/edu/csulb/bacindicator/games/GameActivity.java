@@ -13,13 +13,11 @@ import edu.csulb.bacindicator.games.colors.ColorsGameView;
 import edu.csulb.bacindicator.games.pint.PintGameView;
 
 /**
- * Created by Johan on 30/04/2015.
+ * Created by Johan
  */
 public class GameActivity extends Activity {
 
     private GameView gameView;
-
-//    private PowerManager.WakeLock mWakeLock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,18 +79,6 @@ public class GameActivity extends Activity {
                 .setCancelable(false)
                 .create()
                 .show();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        mWakeLock.acquire();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-//        mWakeLock.release();
     }
 
     @Override

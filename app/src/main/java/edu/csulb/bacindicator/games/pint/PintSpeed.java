@@ -1,7 +1,7 @@
 package edu.csulb.bacindicator.games.pint;
 
 /**
- * Created by Brian on 30/04/2015.
+ * Created by Brian
  */
 public class PintSpeed {
 	

@@ -2,6 +2,9 @@ package edu.csulb.bacindicator.models;
 
 import java.io.Serializable;
 
+/**
+ * Created by Johan
+ */
 public class Drink implements Serializable {
     public long id;
     public String alcohol;

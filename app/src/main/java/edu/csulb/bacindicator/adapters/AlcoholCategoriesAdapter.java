@@ -2,7 +2,6 @@ package edu.csulb.bacindicator.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.models.AlcoholCategory;
 
 /**
- * Created by Johan on 30/04/2015.
+ * Created by Johan
  */
 public class AlcoholCategoriesAdapter extends ArrayAdapter<AlcoholCategory> {
 

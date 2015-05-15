@@ -3,7 +3,7 @@ package edu.csulb.bacindicator.utils;
 import java.util.Locale;
 
 /**
- * Created by Johan on 30/04/2015.
+ * Created by Johan
  */
 public class Language {
     public static String getLanguage() {

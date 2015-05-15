@@ -1,7 +1,7 @@
 package edu.csulb.bacindicator.models;
 
 /**
- * Created by Johan on 01/05/2015.
+ * Created by Johan
  */
 public class Measure {
     public long id;

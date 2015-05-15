@@ -14,7 +14,7 @@ import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.models.Alcohol;
 
 /**
- * Created by Johan on 30/04/2015.
+ * Created by Johan
  */
 public class AlcoholAdapter extends ArrayAdapter<Alcohol> {
 

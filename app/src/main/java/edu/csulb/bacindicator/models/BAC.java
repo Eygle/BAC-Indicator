@@ -4,6 +4,9 @@ import android.graphics.Color;
 
 import java.util.List;
 
+/**
+ * Created by Jimmy
+ */
 public class BAC {
 
     public static final float BAC_LEGAL_LIMIT = 0.08f;

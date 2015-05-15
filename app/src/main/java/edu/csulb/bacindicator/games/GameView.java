@@ -6,7 +6,7 @@ import android.view.View;
 import edu.csulb.bacindicator.activities.MainActivity;
 
 /**
- * Created by Johan on 30/04/2015.
+ * Created by Johan
  */
 public abstract class GameView extends View {
     protected Activity context;

@@ -1,7 +1,5 @@
 package edu.csulb.bacindicator.models;
 
-import edu.csulb.bacindicator.R;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -11,9 +9,13 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.widget.Toast;
 
+import edu.csulb.bacindicator.R;
+
+/**
+ * Created by Brian
+ */
 public class Settings {
 
 	private static String idContact;

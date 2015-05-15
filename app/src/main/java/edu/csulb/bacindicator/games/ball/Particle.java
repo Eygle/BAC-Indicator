@@ -1,5 +1,8 @@
 package edu.csulb.bacindicator.games.ball;
 
+/**
+ * Created by Jimmy
+ */
 public class Particle {
 
     private static final float COR = 0.7f;

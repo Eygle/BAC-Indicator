@@ -10,9 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import edu.csulb.bacindicator.R;
-import edu.csulb.bacindicator.models.BAC;
 import edu.csulb.bacindicator.models.Drink;
 
+/**
+ * Created by Jimmy
+ */
 public class DrinkListAdapter extends ArrayAdapter<Drink> {
 
     public DrinkListAdapter(Context context) {

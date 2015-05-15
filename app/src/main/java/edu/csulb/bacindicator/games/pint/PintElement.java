@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 /**
- * Created by Brian on 30/04/2015.
+ * Created by Brian
  */
 public class PintElement {
 
@@ -93,11 +93,8 @@ public class PintElement {
 
 		if (xP >= (x - bitmap.getWidth() / 2)
 				&& (xP <= (x + bitmap.getWidth() / 2))) {
-			if (yP >= (y - bitmap.getHeight() / 2)
-					&& (y <= (y + bitmap.getHeight() / 2))) {
-				return true;
-			}
-			return false;
+			return yP >= (y - bitmap.getHeight() / 2)
+					&& (y <= (y + bitmap.getHeight() / 2));
 		}
 		return false;
 	}

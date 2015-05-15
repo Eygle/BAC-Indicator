@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.activities.MainActivity;
@@ -15,13 +14,12 @@ import edu.csulb.bacindicator.adapters.AlcoholAdapter;
 import edu.csulb.bacindicator.adapters.AlcoholCategoriesAdapter;
 import edu.csulb.bacindicator.adapters.MeasureAdapter;
 import edu.csulb.bacindicator.db.BacIndicatorDataSource;
-import edu.csulb.bacindicator.db.DBBacIndicatorHelper;
 import edu.csulb.bacindicator.models.Alcohol;
 import edu.csulb.bacindicator.models.AlcoholCategory;
 import edu.csulb.bacindicator.models.Measure;
 
 /**
- * Created by Johan on 30/04/2015.
+ * Created by Johan
  */
 public class AddDrinkUtil {
     private static MainActivity context;

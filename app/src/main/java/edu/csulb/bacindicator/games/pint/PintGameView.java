@@ -7,10 +7,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.Point;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,16 +18,14 @@ import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.games.GameView;
 
 /**
- * Created by Brian on 30/04/2015.
+ * Created by Brian
  */
 public class PintGameView extends GameView implements View.OnTouchListener {
+    Paint paint;
     private PintElement target;
     private PintElement pint;
-
     private Bitmap green_circle;
     private Bitmap red_circle;
-    Paint paint;
-
     private long startTime;
     private long nowTime;
 	private CountDownTimer countDown = null;

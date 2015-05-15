@@ -18,8 +18,8 @@ Work distribution
  * Johan
 	- Add drink / repeat
 	- Colors game
-	- Games launch order and skeletton (Activity)
+	- Games launch order and skeleton (Activity)
 	- Database (fill and requests)
 	- Updater (refresh screen and re-calculate each 10 secs)
 	- Language management (french + english)
-	- Splashscreen (appear only on first launch)
+	- SplashScreen (appear only on first launch)

@@ -1,5 +1,8 @@
 package edu.csulb.bacindicator.models;
 
+/**
+ * Created by Brian
+ */
 public class MyContact {
 
 	String 	idContact;

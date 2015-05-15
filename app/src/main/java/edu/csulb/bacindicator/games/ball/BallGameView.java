@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -21,6 +20,9 @@ import java.util.concurrent.TimeUnit;
 import edu.csulb.bacindicator.R;
 import edu.csulb.bacindicator.games.GameView;
 
+/**
+ * Created by Jimmy
+ */
 public class BallGameView extends GameView implements SensorEventListener {
 
     private static final int BALL_SIZE = 50;
@@ -39,8 +41,6 @@ public class BallGameView extends GameView implements SensorEventListener {
     private float mSensorX;
     private float mSensorY;
     private long mSensorTimestamp;
-
-    private Bitmap test;
 
     public BallGameView(Activity context) {
         super(context);

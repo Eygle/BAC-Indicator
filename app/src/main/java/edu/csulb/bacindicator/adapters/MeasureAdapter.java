@@ -11,11 +11,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.csulb.bacindicator.R;
-import edu.csulb.bacindicator.models.Alcohol;
 import edu.csulb.bacindicator.models.Measure;
 
 /**
- * Created by Johan on 30/04/2015.
+ * Created by Johan
  */
 public class MeasureAdapter extends ArrayAdapter<Measure> {
 

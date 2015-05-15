@@ -62,8 +62,8 @@
 
     <!-- Games -->
     <string name="game_win_title">You won!</string>
-    <string name="game_win_message">You seems not to be that drunk.\nThat doesn\'t mean you can drive thought!\nBe responsible.</string>
-    <string name="game_loose_title">You lost !</string>
+    <string name="game_win_message">You don\'t seem to be that drunk.\nThat doesn\'t mean you can drive though!\nBe responsible.</string>
+    <string name="game_loose_title">You lost!</string>
     <string name="game_loose_message">Don\'t try to drive if you drunk alcohol!</string>
 
     <string name="game_color_legend">True or false?</string>
@@ -78,6 +78,6 @@
     <string name="message_no_sensor">No sensor found on this phone. Impossible to play this game.</string>
 
     <string name="button_sms_text">Send SMS to %s</string>
-    <string name="sms_send">A SMS has been send to %s</string>
+    <string name="sms_send">A SMS has been sent to %s</string>
     <string name="invalid_contact">You cannot select this contact.</string>
 </resources>

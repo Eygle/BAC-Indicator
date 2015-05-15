@@ -22,3 +22,4 @@ Work distribution
 	- Database (fill and requests)
 	- Updater (refresh screen and re-calculate each 10 secs)
 	- Language management (french + english)
+	- Splashscreen (appear only on first launch)
